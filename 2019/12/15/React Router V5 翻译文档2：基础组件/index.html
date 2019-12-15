@@ -1,0 +1,307 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="Fengzhen8023">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.2.3">
+    <meta name="root" content="/">
+    <link rel="dns-prefetch" href="http://yoursite.com">
+    <!--SEO-->
+
+<meta name="keywords" content="前端,React,React Router">
+
+
+<meta name="description" content="
+转载说明原翻译作者：https://www.jianshu.com/u/5d660a479013原官网文档：https://reacttraining.com/react-router/web...">
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+    <!--Title-->
+
+<title>
+    
+    React Router V5 翻译文档2：基础组件 |
+    
+    Fengzhen8023
+</title>
+
+<link rel="alternate" href="/atom.xml" title="Fengzhen8023" type="application/atom+xml">
+
+
+<link rel="icon" href="/favicon.ico">
+
+    
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.7.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+<link rel="stylesheet" href="/fonts/iconfont.css">
+    
+<div class="hide">
+    <script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+</div>
+
+
+
+
+    
+
+</head></html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+<body>
+    <header class="main-header"  >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='John Doe'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+            <!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+            <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+        </div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                        <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://yoursite.com">
+                        Fengzhen8023</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/"><i class="fa "></i>
+                                Home</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/React/"><i class="fa "></i>
+                                React</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/Webpack/"><i class="fa "></i>
+                                Webpack</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/Python/"><i class="fa "></i>
+                                Python</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/userfulTools/"><i class="fa "></i>
+                                实用工具</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/archives/"><i class="fa "></i>
+                                时间轴</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="React Router V5 翻译文档2：基础组件">
+            
+            React Router V5 翻译文档2：基础组件
+            
+        </h1>
+        <div class="post-meta">
+    
+    <span class="categories-meta fa-wrap">
+        <i class="iconfont icon-wulumuqishigongandashujuguanlipingtai-ico-"></i>
+        <a class="category-link" href="/categories/React/">React</a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="iconfont icon-biaoqian"></i>
+        <span class="tags-meta">
+            
+            <a class="tag-link" href="/tags/React/">React</a> <a class="tag-link" href="/tags/React-Router/">React Router</a> <a class="tag-link" href="/tags/前端/">前端</a>
+            
+        </span>
+    </span>
+    
+    
+    
+    <span class="fa-wrap">
+        <i class="iconfont icon-date"></i>
+        <span class="date-meta">
+            2019/12/15</span>
+    </span>
+    
+    
+</div>
+        
+        
+    </div>
+    
+    <div class="post-body post-content">
+        <blockquote>
+<h5 id="转载说明"><a href="#转载说明" class="headerlink" title="转载说明"></a>转载说明</h5><p>原翻译作者：<a href="https://www.jianshu.com/u/5d660a479013" target="_blank" rel="noopener">https://www.jianshu.com/u/5d660a479013</a><br>原官网文档：<a href="https://reacttraining.com/react-router/web/guides/quick-start" target="_blank" rel="noopener">https://reacttraining.com/react-router/web/guides/quick-start</a></p>
+</blockquote>
+<h2 id="基础组件"><a href="#基础组件" class="headerlink" title="基础组件"></a>基础组件</h2><p>React Router包含三种类型的组件： 路由组件，路由匹配组件，导航组件。  </p>
+<p>在你使用这些组件前，都必须从react-router-dom导入她们。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; BrowserRouter, Route, Link &#125; <span class="keyword">from</span> <span class="string">"react-router-dom"</span>;</span><br></pre></td></tr></table></figure></p>
+<h3 id="路由组件"><a href="#路由组件" class="headerlink" title="路由组件"></a>路由组件</h3><p>任何一个拥有路由跳转功能都React应用都核心都必须是一个路由组件。对于Web项目来说，react-router-dom提供了&lt; BrowserRouter &gt;和&lt; HashRouter &gt;这两种路由。她们会为你创建一个专业的history对象。通常来说，如果你有一个服务器来响应请求，那就使用&lt; BrowserRouter &gt;。如果你是用静态文件来提供服务，那么就使用 &lt; HashRouter &gt;<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; BrowserRouter &#125; <span class="keyword">from</span> <span class="string">"react-router-dom"</span>;</span><br><span class="line">ReactDOM.render(</span><br><span class="line">  &lt;BrowserRouter&gt;</span><br><span class="line">    &lt;App /&gt;</span><br><span class="line">  &lt;<span class="regexp">/BrowserRouter&gt;,</span></span><br><span class="line"><span class="regexp">  holder</span></span><br><span class="line"><span class="regexp">);</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="路由匹配组件"><a href="#路由匹配组件" class="headerlink" title="路由匹配组件"></a>路由匹配组件</h3><p>路由匹配组件有两种：&lt; Route &gt;和&lt; Switch &gt;<br>路由匹配组件通过比较&lt; Route &gt;的path属性和当前页面地址栏的路径来工作。当一个&lt; Route &gt;匹配成功的时候，她会渲染出对应的内容，当匹配不成功的时候，任何内容都不会被渲染出来。当一个&lt; Route &gt;没有path属性时她对任何路径都会匹配成功。<br>你可以在你想要根据浏览器地址来渲染内容的任何地方使用&lt; Route &gt;,但是我们通常会把一组&lt; Route &gt;放在一起。&lt; Switch &gt;就是用来把多个&lt; Route &gt;组合在一起的。<br>我们不是必须要用&lt; Switch &gt;把多个&lt; Route &gt;组合在一起，但是这种做法通常是有用的。 &lt; Switch &gt;将迭代其所有子&lt; Route &gt;元素，并仅渲染与当前路径匹配的第一个子元素。 她对于多个path匹配相同的路径、动画路由之间的转换、没有路径匹配时的识别（这样你就可以渲染“404”组件）是有很大帮助的。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; Route, Switch &#125; <span class="keyword">from</span> <span class="string">"react-router-dom"</span>;</span><br><span class="line"><span class="comment">// when location = &#123; pathname: '/about' &#125;</span></span><br><span class="line">&lt;Route path=<span class="string">'/about'</span> component=&#123;About&#125;/&gt; <span class="comment">// renders &lt;About/&gt;</span></span><br><span class="line">&lt;Route path=<span class="string">'/contact'</span> component=&#123;Contact&#125;/&gt; <span class="comment">// renders null</span></span><br><span class="line">&lt;Route component=&#123;Always&#125;/&gt; <span class="comment">// renders &lt;Always/&gt;</span></span><br><span class="line"></span><br><span class="line">&lt;Switch&gt;</span><br><span class="line">  &lt;Route exact path=<span class="string">"/"</span> component=&#123;Home&#125; /&gt;</span><br><span class="line">  &lt;Route path=<span class="string">"/about"</span> component=&#123;About&#125; /&gt;</span><br><span class="line">  &lt;Route path=<span class="string">"/contact"</span> component=&#123;Contact&#125; /&gt;</span><br><span class="line">&lt;<span class="regexp">/Switch&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&lt;Switch&gt;</span></span><br><span class="line"><span class="regexp">  &lt;Route exact path="/</span><span class="string">" component=&#123;Home&#125; /&gt;</span></span><br><span class="line"><span class="string">  &lt;Route path="</span>/about<span class="string">" component=&#123;About&#125; /&gt;</span></span><br><span class="line"><span class="string">  &lt;Route path="</span>/contact<span class="string">" component=&#123;Contact&#125; /&gt;</span></span><br><span class="line"><span class="string">  &#123;/* when none of the above match, &lt;NoMatch&gt; will be rendered */&#125;</span></span><br><span class="line"><span class="string">  &lt;Route component=&#123;NoMatch&#125; /&gt;</span></span><br><span class="line"><span class="string">&lt;/Switch&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="路由渲染属性"><a href="#路由渲染属性" class="headerlink" title="路由渲染属性"></a>路由渲染属性</h3><p>对于一个&lt; Route &gt;组件，你可以设置三种属性：component, render, children 来渲染出相应的内容。在这里我们只关注component和render,因为她们是经常会用到的，更多的内容可以查看&lt; Route &gt;的API文档。  </p>
+<p>当你有一个已存在的组件（无论是一个React组件还是一个无状态的函数组件）想要渲染时应该使用component。当你必须传递一些参数变量给组件时应该用render属性，她采用内联函数的形式。你不应该使用component属性来渲染一个带有参数变量的内联函数组件，这会导致不必要的组件的挂载和卸载。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Home = <span class="function"><span class="params">()</span> =&gt;</span> <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span>Home<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> App = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> someVariable = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;Switch&gt;</span><br><span class="line">      &#123;<span class="comment">/* these are good */</span>&#125;</span><br><span class="line">      &lt;Route exact path=<span class="string">"/"</span> component=&#123;Home&#125; /&gt;</span><br><span class="line">      &lt;Route</span><br><span class="line">        path=<span class="string">"/about"</span></span><br><span class="line">        render=&#123;props =&gt; <span class="xml"><span class="tag">&lt;<span class="name">About</span> &#123;<span class="attr">...props</span>&#125; <span class="attr">extra</span>=<span class="string">&#123;someVariable&#125;</span> /&gt;</span>&#125;</span></span><br><span class="line"><span class="xml">      /&gt;</span></span><br><span class="line"><span class="xml">      &#123;/* do not do this */&#125;</span></span><br><span class="line">      &lt;Route</span><br><span class="line">        path="/contact"</span><br><span class="line">        component=&#123;props =&gt; &lt;Contact &#123;...props&#125; extra=&#123;someVariable&#125; /&gt;&#125;</span><br><span class="line">      /&gt;</span><br><span class="line">    &lt;/Switch&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<h3 id="导航组件"><a href="#导航组件" class="headerlink" title="导航组件"></a>导航组件</h3><p>React Router 提供了&lt; Link &gt;组件用来在你的应用中创建超链接。&lt; Link &gt;会在页面的任何地方被渲染成&lt; a &gt;标签  </p>
+<p>&lt; NavLink &gt;是一种特殊的&lt; Link &gt;组件，当她的to属性匹配地址栏的路径时，她渲染成的&lt; a &gt;标签会带有’active’的样式。  </p>
+<p>如果你想要强制跳转，你可以使用&lt; Redirect &gt;。当一个&lt; Redirect &gt;组件被渲染时，她会导航到其to属性匹配的路径。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;Link to=<span class="string">"/"</span>&gt;Home&lt;<span class="regexp">/Link&gt;</span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ &lt;a href='/</span><span class="string">'&gt;Home&lt;/a&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">// location = &#123; pathname: '</span>/react<span class="string">' &#125;</span></span><br><span class="line"><span class="string">&lt;NavLink to="/react" activeClassName="hurray"&gt;</span></span><br><span class="line"><span class="string">  React</span></span><br><span class="line"><span class="string">&lt;/NavLink&gt;</span></span><br><span class="line"><span class="string">// &lt;a href='</span>/react<span class="string">' className='</span>hurray<span class="string">'&gt;React&lt;/a&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&lt;Redirect to="/login" /&gt;</span></span><br></pre></td></tr></table></figure></p>
+
+    </div>
+    
+    <div class="post-footer">
+        <div>
+            
+            转载声明：
+            商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="https://www.jianshu.com/u/231315b8e406" target="_blank">Fengzhen8023</a>
+            
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+<div class="article-nav prev-next-wrap clearfix">
+    
+    <a href="/2019/12/15/React Router V5 翻译文档1：快速开始/" class="pre-post btn btn-default" title='React Router V5 翻译文档1：快速开始'>
+        <span class="remove-hidden-lg">上一篇</span>
+        <span class="hidden-xs">
+            React Router V5 翻译文档1：快速开始</span>
+    </a>
+    
+    
+    <a href="/2019/12/15/React Router V5 翻译文档3：服务端渲染/" class="next-post btn btn-default" title='React Router V5 翻译文档3：服务端渲染'>
+        <span class="remove-hidden-lg">下一篇</span>
+        <span class="hidden-xs">
+            React Router V5 翻译文档3：服务端渲染</span></i>
+    </a>
+    
+</div>
+
+<div id="comments">
+    
+
+<div id="vcomments" class="valine"></div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+<script>
+new Valine({
+    av: AV,
+    el: '#vcomments',
+    appId: 'xOKV9J4UeQAtVkvnJC7Kq2Jn-gzGzoHsz',
+    appKey: 'erIpQac4azoCmgfBB7Dl9maa',
+    placeholder: '说点什么吧',
+    notify: false,
+    verify: true,
+    avatar: 'mm',
+    meta: 'nick,mail'.split(','),
+    pageSize: '10',
+    path: window.location.pathname,
+    lang: 'en'.toLowerCase()
+})
+</script>
+
+
+</div>
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">
+            Table of Contents
+        </h3>
+        
+        <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#转载说明"><span class="toc-text">转载说明</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基础组件"><span class="toc-text">基础组件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#路由组件"><span class="toc-text">路由组件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#路由匹配组件"><span class="toc-text">路由匹配组件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#路由渲染属性"><span class="toc-text">路由渲染属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#导航组件"><span class="toc-text">导航组件</span></a>
+        
+    </div>
+</aside>
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+<a id="back-to-top" class="icon-btn hide">
+    <i class="iconfont icon-top"></i>
+</a>
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy;
+                    2017
+                    
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+</body>
+</html>

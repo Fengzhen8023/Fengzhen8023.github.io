@@ -1,0 +1,302 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="Fengzhen8023">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.2.3">
+    <meta name="root" content="/">
+    <link rel="dns-prefetch" href="http://yoursite.com">
+    <!--SEO-->
+
+<meta name="keywords" content="前端,React,React Router">
+
+
+<meta name="description" content="
+转载说明原翻译作者：https://www.jianshu.com/u/5d660a479013原官网文档：https://reacttraining.com/react-router/web...">
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+    <!--Title-->
+
+<title>
+    
+    React Router V5 翻译文档7：测试 |
+    
+    Fengzhen8023
+</title>
+
+<link rel="alternate" href="/atom.xml" title="Fengzhen8023" type="application/atom+xml">
+
+
+<link rel="icon" href="/favicon.ico">
+
+    
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.7.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+<link rel="stylesheet" href="/fonts/iconfont.css">
+    
+<div class="hide">
+    <script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+</div>
+
+
+
+
+    
+
+</head></html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+<body>
+    <header class="main-header"  >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='John Doe'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+            <!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+            <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+        </div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                        <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://yoursite.com">
+                        Fengzhen8023</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/"><i class="fa "></i>
+                                Home</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/React/"><i class="fa "></i>
+                                React</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/Webpack/"><i class="fa "></i>
+                                Webpack</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/Python/"><i class="fa "></i>
+                                Python</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/userfulTools/"><i class="fa "></i>
+                                实用工具</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/archives/"><i class="fa "></i>
+                                时间轴</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="React Router V5 翻译文档7：测试">
+            
+            React Router V5 翻译文档7：测试
+            
+        </h1>
+        <div class="post-meta">
+    
+    <span class="categories-meta fa-wrap">
+        <i class="iconfont icon-wulumuqishigongandashujuguanlipingtai-ico-"></i>
+        <a class="category-link" href="/categories/React/">React</a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="iconfont icon-biaoqian"></i>
+        <span class="tags-meta">
+            
+            <a class="tag-link" href="/tags/React/">React</a> <a class="tag-link" href="/tags/React-Router/">React Router</a> <a class="tag-link" href="/tags/前端/">前端</a>
+            
+        </span>
+    </span>
+    
+    
+    
+    <span class="fa-wrap">
+        <i class="iconfont icon-date"></i>
+        <span class="date-meta">
+            2019/12/15</span>
+    </span>
+    
+    
+</div>
+        
+        
+    </div>
+    
+    <div class="post-body post-content">
+        <blockquote>
+<h5 id="转载说明"><a href="#转载说明" class="headerlink" title="转载说明"></a>转载说明</h5><p>原翻译作者：<a href="https://www.jianshu.com/u/5d660a479013" target="_blank" rel="noopener">https://www.jianshu.com/u/5d660a479013</a><br>原官网文档：<a href="https://reacttraining.com/react-router/web/guides/quick-start" target="_blank" rel="noopener">https://reacttraining.com/react-router/web/guides/quick-start</a></p>
+</blockquote>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><p>React Router依赖React上下文来工作。 这会影响您如何测试使用我们组件的组件。  </p>
+<p>如果你对应用渲染的<link>或者<router>组件进行单元测试，那么你会得到一些有关上下文的错误和警告信息。虽然你可能会找出自己的路由上下文的内容，我们推荐你将你的单元测试包裹在<staticrouter>或者<memoryrouter>中。代码如下:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Sidebar</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;div&gt;</span><br><span class="line">        &lt;button onClick=&#123;<span class="keyword">this</span>.toggleExpand&#125;&gt;</span><br><span class="line">          expand</span><br><span class="line">        &lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">        &lt;ul&gt;</span></span><br><span class="line"><span class="regexp">          &#123;users.map(user =&gt; (</span></span><br><span class="line"><span class="regexp">            &lt;li&gt;</span></span><br><span class="line"><span class="regexp">               &lt;Link to=&#123;user.path&#125;&gt;</span></span><br><span class="line"><span class="regexp">                 &#123;user.name&#125;</span></span><br><span class="line"><span class="regexp">               &lt;/</span>Link&gt;</span><br><span class="line">            &lt;<span class="regexp">/li&gt;</span></span><br><span class="line"><span class="regexp">          ))&#125;</span></span><br><span class="line"><span class="regexp">        &lt;/u</span>l&gt;</span><br><span class="line">      &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">    )</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ broken</span></span><br><span class="line"><span class="regexp">test('it expands when the button is clicked', () =&gt; &#123;</span></span><br><span class="line"><span class="regexp">  render(</span></span><br><span class="line"><span class="regexp">    &lt;Sidebar/</span>&gt;</span><br><span class="line">  )</span><br><span class="line">  click(theButton)</span><br><span class="line">  expect(theThingToBeOpen)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// fixed!</span></span><br><span class="line">test(<span class="string">'it expands when the button is clicked'</span>, () =&gt; &#123;</span><br><span class="line">  render(</span><br><span class="line">    &lt;MemoryRouter&gt;</span><br><span class="line">      &lt;Sidebar/&gt;</span><br><span class="line">    &lt;<span class="regexp">/MemoryRouter&gt;</span></span><br><span class="line"><span class="regexp">  )</span></span><br><span class="line"><span class="regexp">  click(theButton)</span></span><br><span class="line"><span class="regexp">  expect(theThingToBeOpen)</span></span><br><span class="line"><span class="regexp">&#125;)</span></span><br></pre></td></tr></table></figure></memoryrouter></staticrouter></router></p>
+<h3 id="从特定路由开始"><a href="#从特定路由开始" class="headerlink" title="从特定路由开始"></a>从特定路由开始</h3><p>&lt; MemoryRouter &gt;支持initialEntries和initialIndex 属性。因此你可以从一个特定的路径来启动你的应用（或者是从应用的一小部分)。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">test(<span class="string">"current user is active in sidebar"</span>, () =&gt; &#123;</span><br><span class="line">  render(</span><br><span class="line">    &lt;MemoryRouter initialEntries=&#123;[<span class="string">"/users/2"</span>]&#125;&gt;</span><br><span class="line">      &lt;Sidebar /&gt;</span><br><span class="line">    &lt;<span class="regexp">/MemoryRouter&gt;</span></span><br><span class="line"><span class="regexp">  );</span></span><br><span class="line"><span class="regexp">  expectUserToBeActive(2);</span></span><br><span class="line"><span class="regexp">&#125;);</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="导航"><a href="#导航" class="headerlink" title="导航"></a>导航</h3><p>当路径改变时我们有许多路由测试的任务，因此你可能不需要再测试这个。但是如果你必须这样做的话，既然这发生在渲染时，那么我们可以这样做：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; render, unmountComponentAtNode &#125; <span class="keyword">from</span> <span class="string">"react-dom"</span>;</span><br><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">"react"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; Route, Link, MemoryRouter &#125; <span class="keyword">from</span> <span class="string">"react-router-dom"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; Simulate &#125; <span class="keyword">from</span> <span class="string">"react-addons-test-utils"</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// a way to render any part of your app inside a MemoryRouter</span></span><br><span class="line"><span class="comment">// you pass it a list of steps to execute when the location</span></span><br><span class="line"><span class="comment">// changes, it will call back to you with stuff like</span></span><br><span class="line"><span class="comment">// `match` and `location`, and `history` so you can control</span></span><br><span class="line"><span class="comment">// the flow and make assertions.</span></span><br><span class="line"><span class="keyword">const</span> renderTestSequence = (&#123;</span><br><span class="line">  initialEntries,</span><br><span class="line">  initialIndex,</span><br><span class="line">  subject: Subject,</span><br><span class="line">  steps</span><br><span class="line">&#125;) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> div = <span class="built_in">document</span>.createElement(<span class="string">"div"</span>);</span><br><span class="line"></span><br><span class="line">  <span class="class"><span class="keyword">class</span> <span class="title">Assert</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">    componentDidMount() &#123;</span><br><span class="line">      <span class="keyword">this</span>.assert();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    componentDidUpdate() &#123;</span><br><span class="line">      <span class="keyword">this</span>.assert();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    assert() &#123;</span><br><span class="line">      <span class="keyword">const</span> nextStep = steps.shift();</span><br><span class="line">      <span class="keyword">if</span> (nextStep) &#123;</span><br><span class="line">        nextStep(&#123; ...this.props, div &#125;);</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        unmountComponentAtNode(div);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    render() &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">this</span>.props.children;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="class"><span class="keyword">class</span> <span class="title">Test</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">    render() &#123;</span><br><span class="line">      <span class="keyword">return</span> (</span><br><span class="line">        &lt;MemoryRouter</span><br><span class="line">          initialIndex=&#123;initialIndex&#125;</span><br><span class="line">          initialEntries=&#123;initialEntries&#125;</span><br><span class="line">        &gt;</span><br><span class="line">          &lt;Route</span><br><span class="line">            render=&#123;props =&gt; (</span><br><span class="line">              &lt;Assert &#123;...props&#125;&gt;</span><br><span class="line">                &lt;Subject /&gt;</span><br><span class="line">              &lt;<span class="regexp">/Assert&gt;</span></span><br><span class="line"><span class="regexp">            )&#125;</span></span><br><span class="line"><span class="regexp">          /</span>&gt;</span><br><span class="line">        &lt;<span class="regexp">/MemoryRouter&gt;</span></span><br><span class="line"><span class="regexp">      );</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">  render(&lt;Test /</span>&gt;, div);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// our Subject, the App, but you can test any sub</span></span><br><span class="line"><span class="comment">// section of your app too</span></span><br><span class="line"><span class="keyword">const</span> App = <span class="function"><span class="params">()</span> =&gt;</span> (</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;Route</span><br><span class="line">      exact</span><br><span class="line">      path=<span class="string">"/"</span></span><br><span class="line">      render=&#123;() =&gt; (</span><br><span class="line">        &lt;div&gt;</span><br><span class="line">          &lt;h1&gt;Welcome&lt;<span class="regexp">/h1&gt;</span></span><br><span class="line"><span class="regexp">        &lt;/</span>div&gt;</span><br><span class="line">      )&#125;</span><br><span class="line">    /&gt;</span><br><span class="line">    &lt;Route</span><br><span class="line">      path=<span class="string">"/dashboard"</span></span><br><span class="line">      render=&#123;() =&gt; (</span><br><span class="line">        &lt;div&gt;</span><br><span class="line">          &lt;h1&gt;Dashboard&lt;<span class="regexp">/h1&gt;</span></span><br><span class="line"><span class="regexp">          &lt;Link to="/</span><span class="string">" id="</span>click-me<span class="string">"&gt;</span></span><br><span class="line"><span class="string">            Home</span></span><br><span class="line"><span class="string">          &lt;/Link&gt;</span></span><br><span class="line"><span class="string">        &lt;/div&gt;</span></span><br><span class="line"><span class="string">      )&#125;</span></span><br><span class="line"><span class="string">    /&gt;</span></span><br><span class="line"><span class="string">  &lt;/div&gt;</span></span><br><span class="line"><span class="string">);</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">// the actual test!</span></span><br><span class="line"><span class="string">it("</span>navigates around<span class="string">", done =&gt; &#123;</span></span><br><span class="line"><span class="string">  renderTestSequence(&#123;</span></span><br><span class="line"><span class="string">    // tell it the subject you're testing</span></span><br><span class="line"><span class="string">    subject: App,</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    // and the steps to execute each time the location changes</span></span><br><span class="line"><span class="string">    steps: [</span></span><br><span class="line"><span class="string">      // initial render</span></span><br><span class="line"><span class="string">      (&#123; history, div &#125;) =&gt; &#123;</span></span><br><span class="line"><span class="string">        // assert the screen says what we think it should</span></span><br><span class="line"><span class="string">        console.assert(div.innerHTML.match(/Welcome/));</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        // now we can imperatively navigate as the test</span></span><br><span class="line"><span class="string">        history.push("</span>/dashboard<span class="string">");</span></span><br><span class="line"><span class="string">      &#125;,</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">      // second render from new location</span></span><br><span class="line"><span class="string">      (&#123; div &#125;) =&gt; &#123;</span></span><br><span class="line"><span class="string">        console.assert(div.innerHTML.match(/Dashboard/));</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        // or we can simulate clicks on Links instead of</span></span><br><span class="line"><span class="string">        // using history.push</span></span><br><span class="line">        Simulate.click(div.querySelector("#click-me"), &#123;</span><br><span class="line">          button: <span class="number">0</span></span><br><span class="line">        &#125;);</span><br><span class="line">      &#125;,</span><br><span class="line"></span><br><span class="line">      <span class="comment">// final render</span></span><br><span class="line">      (&#123; location &#125;) =&gt; &#123;</span><br><span class="line">        <span class="built_in">console</span>.assert(location.pathname === <span class="string">"/"</span>);</span><br><span class="line">        <span class="comment">// you'll want something like `done()` so your test</span></span><br><span class="line">        <span class="comment">// fails if you never make it here.</span></span><br><span class="line">        done();</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+
+    </div>
+    
+    <div class="post-footer">
+        <div>
+            
+            转载声明：
+            商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="https://www.jianshu.com/u/231315b8e406" target="_blank">Fengzhen8023</a>
+            
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+<div class="article-nav prev-next-wrap clearfix">
+    
+    <a href="/2019/12/15/React Router V5 翻译文档6：设计思想/" class="pre-post btn btn-default" title='React Router V5 翻译文档6：设计思想'>
+        <span class="remove-hidden-lg">上一篇</span>
+        <span class="hidden-xs">
+            React Router V5 翻译文档6：设计思想</span>
+    </a>
+    
+    
+    <a href="/2019/12/15/React Router V5 翻译文档8：Redux集成/" class="next-post btn btn-default" title='React Router V5 翻译文档8：Redux集成'>
+        <span class="remove-hidden-lg">下一篇</span>
+        <span class="hidden-xs">
+            React Router V5 翻译文档8：Redux集成</span></i>
+    </a>
+    
+</div>
+
+<div id="comments">
+    
+
+<div id="vcomments" class="valine"></div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+<script>
+new Valine({
+    av: AV,
+    el: '#vcomments',
+    appId: 'xOKV9J4UeQAtVkvnJC7Kq2Jn-gzGzoHsz',
+    appKey: 'erIpQac4azoCmgfBB7Dl9maa',
+    placeholder: '说点什么吧',
+    notify: false,
+    verify: true,
+    avatar: 'mm',
+    meta: 'nick,mail'.split(','),
+    pageSize: '10',
+    path: window.location.pathname,
+    lang: 'en'.toLowerCase()
+})
+</script>
+
+
+</div>
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">
+            Table of Contents
+        </h3>
+        
+        <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#转载说明"><span class="toc-text">转载说明</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#测试"><span class="toc-text">测试</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#从特定路由开始"><span class="toc-text">从特定路由开始</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#导航"><span class="toc-text">导航</span></a>
+        
+    </div>
+</aside>
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+<a id="back-to-top" class="icon-btn hide">
+    <i class="iconfont icon-top"></i>
+</a>
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy;
+                    2017
+                    
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+</body>
+</html>

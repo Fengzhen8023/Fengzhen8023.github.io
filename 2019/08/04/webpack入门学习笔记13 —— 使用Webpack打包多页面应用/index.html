@@ -1,0 +1,325 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="Fengzhen8023">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.2.3">
+    <meta name="root" content="/">
+    <link rel="dns-prefetch" href="http://yoursite.com">
+    <!--SEO-->
+
+<meta name="keywords" content="Webpack,前端">
+
+
+<meta name="description" content="1. 写在前面如果你熟悉Vue或者React的话，那么你肯定知道使用这些框架创建的应用属于 单页面应用 。这些框架底层使用的就是Webpack来构建项目，通过对项目文件进行打包编译，最终生成一个...">
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+    <!--Title-->
+
+<title>
+    
+    webpack入门学习笔记13 —— 使用Webpack打包多页面应用 |
+    
+    Fengzhen8023
+</title>
+
+<link rel="alternate" href="/atom.xml" title="Fengzhen8023" type="application/atom+xml">
+
+
+<link rel="icon" href="/favicon.ico">
+
+    
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.7.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+<link rel="stylesheet" href="/fonts/iconfont.css">
+    
+<div class="hide">
+    <script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+</div>
+
+
+
+
+    
+
+</head></html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+<body>
+    <header class="main-header"  >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='John Doe'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+            <!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+            <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+        </div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                        <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://yoursite.com">
+                        Fengzhen8023</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/"><i class="fa "></i>
+                                Home</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/React/"><i class="fa "></i>
+                                React</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/Webpack/"><i class="fa "></i>
+                                Webpack</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/Python/"><i class="fa "></i>
+                                Python</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/userfulTools/"><i class="fa "></i>
+                                实用工具</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/archives/"><i class="fa "></i>
+                                时间轴</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="webpack入门学习笔记13 —— 使用Webpack打包多页面应用">
+            
+            webpack入门学习笔记13 —— 使用Webpack打包多页面应用
+            
+        </h1>
+        <div class="post-meta">
+    
+    <span class="categories-meta fa-wrap">
+        <i class="iconfont icon-wulumuqishigongandashujuguanlipingtai-ico-"></i>
+        <a class="category-link" href="/categories/Webpack/">Webpack</a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="iconfont icon-biaoqian"></i>
+        <span class="tags-meta">
+            
+            <a class="tag-link" href="/tags/Webpack/">Webpack</a> <a class="tag-link" href="/tags/前端/">前端</a>
+            
+        </span>
+    </span>
+    
+    
+    
+    <span class="fa-wrap">
+        <i class="iconfont icon-date"></i>
+        <span class="date-meta">
+            2019/08/04</span>
+    </span>
+    
+    
+</div>
+        
+        
+    </div>
+    
+    <div class="post-body post-content">
+        <h2 id="1-写在前面"><a href="#1-写在前面" class="headerlink" title="1. 写在前面"></a>1. 写在前面</h2><p>如果你熟悉Vue或者React的话，那么你肯定知道使用这些框架创建的应用属于 <strong>单页面应用</strong> 。这些框架底层使用的就是Webpack来构建项目，通过对项目文件进行打包编译，最终生成一个 <strong>.html</strong> 文件，所以我们说这些应用属于 <strong>单页面应用</strong>。</p>
+<p>但是在使用webpack进行构建项目的时候，不仅可以构建单页面应用，还可以构建多页面应用。</p>
+<p>在实际的项目中，如果该项目初期使用的就是 <strong>脚手架（比如Vue脚手架或者React脚手架）</strong> 搭建起来的，那么该项目大多是单页面应用。</p>
+<p>但是如果项目在前期不是使用 <strong>脚手架</strong> 搭建起来的，比如使用 <strong>jQuery</strong> 库来开发的。但是后期有几个大的业务逻辑，需要使用 <strong>Vue脚手架</strong> 或者是 <strong>React脚手架</strong> 来开发，这个时候可能就需要使用Webpack来构建多页面应用，每一个大的业务逻辑对应一个单页面应用。</p>
+<p>所以在这篇博客中，我就来跟大家介绍一下如何使用Webpak，构建多页面应用。主要内容包括：</p>
+<ul>
+<li>如何通过打包编译，生成不同的 <strong>.js</strong> 文件</li>
+<li>如何在 <strong>.html</strong> 文件中，引入指定的 <strong>.js</strong> 文件</li>
+</ul>
+<h2 id="2-如何通过打包编译，生成不同的-js-文件"><a href="#2-如何通过打包编译，生成不同的-js-文件" class="headerlink" title="2. 如何通过打包编译，生成不同的 .js 文件"></a>2. 如何通过打包编译，生成不同的 <strong>.js</strong> 文件</h2><p>如果你看过我之前的博客，那么你就会知道在 <strong><a href="https://github.com/Fengzhen8023/webpack-learning/blob/master/history/webpack.config.6.js" target="_blank" rel="noopener">webpack.config.js</a></strong> 文件中，有以下的配置：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    entry: <span class="string">"./src/index.js"</span>, <span class="comment">// 打包的入口文件，默认是src目录下的index.js文件</span></span><br><span class="line">    output: &#123; <span class="comment">// 配置文件默认是dist目录下的main.js文件</span></span><br><span class="line">        filename: <span class="string">"index.js"</span>, <span class="comment">// 出口文件的文件名</span></span><br><span class="line">        path: path.resolve(__dirname, <span class="string">"build"</span>), <span class="comment">//出口文件的路径，注意一定要是绝对路径</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过以上的配置，webpack就可以找到项目的入口文件（<strong>./src/index.js</strong>）来对项目进行打包编译，最终生成的就是一个单页面应用。这就给我们提供一个思路：如果我们想要使用webpack打包编译，生成多页面应用，也要通过修改这两个配置属性来完成。</p>
+<p>想要构建多页面应用，配置方式非常简单，这里直接给出配置代码，然后再作出解释：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    entry: &#123;    <span class="comment">// 指定入口文件</span></span><br><span class="line">        <span class="string">'home'</span>: <span class="string">"./src/index.js"</span>,   </span><br><span class="line">        <span class="string">'other'</span>: <span class="string">"./src/other.js"</span></span><br><span class="line">    &#125;, </span><br><span class="line">    output: &#123; <span class="comment">// 配置文件默认是dist目录下的main.js文件</span></span><br><span class="line">        filename: <span class="string">"[name].js"</span>, <span class="comment">// 出口文件的文件名</span></span><br><span class="line">        path: path.resolve(__dirname, <span class="string">"build"</span>), <span class="comment">//出口文件的路径，注意一定要是绝对路径</span></span><br><span class="line">    &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过上面的代码，我们可以看到，<strong>entry</strong> 属性的值由字符串变为了对象。在该对象中，我们配置了两个属性，这就表明，我们准备使用webpack来构建 <strong>两个</strong> 单页面应用，分别是 <strong>home</strong> 应用和 <strong>other</strong> 应用。他们都有一个对应的入口文件，webpack在打包编译的时候，就是从他们的入口文件触发，分别构建对应的单页面应用。</p>
+<p>同时我们还修改了 <strong>output.filename</strong> 这个属性，不再是固定的 <strong>index.js</strong>，而是 <strong>[name].js</strong> 。这样就可以通过 <strong>entry对象</strong> 的两个属性（即home和other）来动态生成对应的 <strong>.js</strong> 文件。</p>
+<p>现在你可以在 <strong>src文件夹</strong> 下创建两个入口文件 <strong>index.js</strong> 和 <strong>other.js</strong> ，在里面写对应的代码，然后执行webpack的 <strong>build</strong> 命令，就可以进行打包编译，最终会生成两个文件，即  <strong>index.js</strong> 和 <strong>other.js</strong> ，到这一步多页面应用的 <strong>.js</strong> 文件已经构建完成了。</p>
+<h2 id="3-如何在-html-文件中，引入指定的-js-文件"><a href="#3-如何在-html-文件中，引入指定的-js-文件" class="headerlink" title="3. 如何在 .html 文件中，引入指定的 .js 文件"></a>3. 如何在 <strong>.html</strong> 文件中，引入指定的 <strong>.js</strong> 文件</h2><p>现在多页面应用的 <strong>.js</strong> 文件已经构建完成，但是我们还需要在 <strong>.html</strong> 文件中引入 <strong>.js</strong> 文件，多页面应用才算是正式完成，所以这一节我们介绍如何在 <strong>.html</strong> 文件中引入 <strong>.js</strong> 文件。</p>
+<p>想要达到这个目的，我们需要解除 <strong>html-webpack-plugin</strong> 这一插件的帮助，首先执行以下代码进行安装：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add html-webpack-plugin -D</span><br></pre></td></tr></table></figure>
+<p>安装完成之后，到 <strong>webpack.config.js</strong> 文件中做以下配置：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> HtmlWebpackPlugin = requier(<span class="string">'html-webpack-plugin'</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    <span class="comment">/* 节省篇幅，其余配置已省略 */</span></span><br><span class="line">    plugins: [</span><br><span class="line">        <span class="keyword">new</span> HtmlWebpackPlugin(&#123;</span><br><span class="line">            template: <span class="string">'./index.html'</span>,</span><br><span class="line">            filename: <span class="string">'home.html'</span>,</span><br><span class="line">            chunks: [<span class="string">'home'</span>]</span><br><span class="line">        &#125;),</span><br><span class="line">        <span class="keyword">new</span> HtmlWebpackPlugin(&#123;</span><br><span class="line">            template: <span class="string">'./index.html'</span>,</span><br><span class="line">            filename: <span class="string">'other.html'</span>,</span><br><span class="line">            chunks: [<span class="string">'other'</span>]</span><br><span class="line">            <span class="comment">// chunks: ['other', 'home']	// 也可以引入多个 .js 文件</span></span><br><span class="line">        &#125;),</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里将其他的配置规则省略了，如果你想看其他的配置规则，可以查看我的 <strong><a href="https://github.com/Fengzhen8023/webpack-learning" target="_blank" rel="noopener">GitHub仓库 - webpack-learning</a></strong> ,或者通过本文末尾的链接，跳转到我之前的博客中进行查看。</p>
+<p>因为我们这里构建的是两个单页面应用，所以这里要创建两个 <strong>HtmlWebpackPlugin</strong> 对象，在每个对象中，都有三个属性，这里一一对这些属性做出解释：</p>
+<ul>
+<li><strong>template:</strong> 这是模板文件，webpack会在这个文件中，通过 <strong><code>&lt;script src=&quot;&quot;&gt;&lt;/script&gt;</code></strong> 标签引入打包编译生成的 <strong>.js</strong> 文件，生成最终的 <strong>.html</strong> 页面文件。</li>
+<li><strong>filename:</strong> 在模板文件中引入 <strong>.js</strong> 文件，会生成一个新的 <strong>.html</strong> 文件，通过 <strong>filename</strong> 属性，可以指定生成的 <strong>.html</strong> 文件的名称。</li>
+<li><strong>chunks:</strong> 现在模板文件和打包编译的 <strong>.js</strong> 文件都已经有了，但是要在模板文件中引入哪些 <strong>.js</strong> 文件呢？可以通过 <strong>chunks</strong> 属性来指定。我们可以通过数组的形式，指定一个或多个 <strong>.js</strong> 文件，这样就可以在模板文件中引入一个或多个 <strong>.js</strong> 文件。</li>
+</ul>
+<p>有了上面的配置，现在执行webpack的 <strong>build</strong> 命令，就可以进行打包编译，最终最终会生成 <strong>home.html</strong> 和 <strong>other.html</strong> 两个文件，也就是两个单页面应用。如此一来，我们就使用webpack成功构建了多页面应用。</p>
+<h2 id="4-写在最后"><a href="#4-写在最后" class="headerlink" title="4. 写在最后"></a>4. 写在最后</h2><p>到此为止，我们如何使用webpack构建多页面应用，并且生成了对应的 <strong>.html</strong> 文件，现在到项目中，使用这些 <strong>.html</strong> 文件，就可以使用我们开发的应用了。</p>
+
+    </div>
+    
+    <div class="post-footer">
+        <div>
+            
+            转载声明：
+            商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="https://www.jianshu.com/u/231315b8e406" target="_blank">Fengzhen8023</a>
+            
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+<div class="article-nav prev-next-wrap clearfix">
+    
+    <a href="/2019/08/04/webpack入门学习笔记12 —— 打包编译后文件的引入路径问题/" class="pre-post btn btn-default" title='webpack入门学习笔记12 —— 打包编译后文件的引入路径问题'>
+        <span class="remove-hidden-lg">上一篇</span>
+        <span class="hidden-xs">
+            webpack入门学习笔记12 —— 打包编译后文件的引入路径问题</span>
+    </a>
+    
+    
+    <a href="/2019/07/28/webpack入门学习笔记10 —— 在项目中使用图片资源/" class="next-post btn btn-default" title='webpack入门学习笔记10 —— 在项目中使用图片资源'>
+        <span class="remove-hidden-lg">下一篇</span>
+        <span class="hidden-xs">
+            webpack入门学习笔记10 —— 在项目中使用图片资源</span></i>
+    </a>
+    
+</div>
+
+<div id="comments">
+    
+
+<div id="vcomments" class="valine"></div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+<script>
+new Valine({
+    av: AV,
+    el: '#vcomments',
+    appId: 'xOKV9J4UeQAtVkvnJC7Kq2Jn-gzGzoHsz',
+    appKey: 'erIpQac4azoCmgfBB7Dl9maa',
+    placeholder: '说点什么吧',
+    notify: false,
+    verify: true,
+    avatar: 'mm',
+    meta: 'nick,mail'.split(','),
+    pageSize: '10',
+    path: window.location.pathname,
+    lang: 'en'.toLowerCase()
+})
+</script>
+
+
+</div>
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">
+            Table of Contents
+        </h3>
+        
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-写在前面"><span class="toc-text">1. 写在前面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-如何通过打包编译，生成不同的-js-文件"><span class="toc-text">2. 如何通过打包编译，生成不同的 .js 文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-如何在-html-文件中，引入指定的-js-文件"><span class="toc-text">3. 如何在 .html 文件中，引入指定的 .js 文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-写在最后"><span class="toc-text">4. 写在最后</span></a></li></ol>
+        
+    </div>
+</aside>
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+<a id="back-to-top" class="icon-btn hide">
+    <i class="iconfont icon-top"></i>
+</a>
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy;
+                    2017
+                    
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+</body>
+</html>

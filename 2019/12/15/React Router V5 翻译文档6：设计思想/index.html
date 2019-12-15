@@ -1,0 +1,318 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="Fengzhen8023">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.2.3">
+    <meta name="root" content="/">
+    <link rel="dns-prefetch" href="http://yoursite.com">
+    <!--SEO-->
+
+<meta name="keywords" content="前端,React,React Router">
+
+
+<meta name="description" content="
+转载说明原翻译作者：https://www.jianshu.com/u/5d660a479013原官网文档：https://reacttraining.com/react-router/web...">
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+    <!--Title-->
+
+<title>
+    
+    React Router V5 翻译文档6：设计思想 |
+    
+    Fengzhen8023
+</title>
+
+<link rel="alternate" href="/atom.xml" title="Fengzhen8023" type="application/atom+xml">
+
+
+<link rel="icon" href="/favicon.ico">
+
+    
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.7.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+<link rel="stylesheet" href="/fonts/iconfont.css">
+    
+<div class="hide">
+    <script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+</div>
+
+
+
+
+    
+
+</head></html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+<body>
+    <header class="main-header"  >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='John Doe'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+            <!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+            <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+        </div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                        <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://yoursite.com">
+                        Fengzhen8023</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/"><i class="fa "></i>
+                                Home</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/React/"><i class="fa "></i>
+                                React</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/Webpack/"><i class="fa "></i>
+                                Webpack</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/Python/"><i class="fa "></i>
+                                Python</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/userfulTools/"><i class="fa "></i>
+                                实用工具</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/archives/"><i class="fa "></i>
+                                时间轴</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="React Router V5 翻译文档6：设计思想">
+            
+            React Router V5 翻译文档6：设计思想
+            
+        </h1>
+        <div class="post-meta">
+    
+    <span class="categories-meta fa-wrap">
+        <i class="iconfont icon-wulumuqishigongandashujuguanlipingtai-ico-"></i>
+        <a class="category-link" href="/categories/React/">React</a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="iconfont icon-biaoqian"></i>
+        <span class="tags-meta">
+            
+            <a class="tag-link" href="/tags/React/">React</a> <a class="tag-link" href="/tags/React-Router/">React Router</a> <a class="tag-link" href="/tags/前端/">前端</a>
+            
+        </span>
+    </span>
+    
+    
+    
+    <span class="fa-wrap">
+        <i class="iconfont icon-date"></i>
+        <span class="date-meta">
+            2019/12/15</span>
+    </span>
+    
+    
+</div>
+        
+        
+    </div>
+    
+    <div class="post-body post-content">
+        <blockquote>
+<h5 id="转载说明"><a href="#转载说明" class="headerlink" title="转载说明"></a>转载说明</h5><p>原翻译作者：<a href="https://www.jianshu.com/u/5d660a479013" target="_blank" rel="noopener">https://www.jianshu.com/u/5d660a479013</a><br>原官网文档：<a href="https://reacttraining.com/react-router/web/guides/quick-start" target="_blank" rel="noopener">https://reacttraining.com/react-router/web/guides/quick-start</a></p>
+</blockquote>
+<h2 id="设计思想"><a href="#设计思想" class="headerlink" title="设计思想"></a>设计思想</h2><p>这篇指南是是用来解释React Router使用时的心智模型。我们将其称为“动态路由”，这与你可能更熟悉的“静态路由”完全不同。  </p>
+<h3 id="静态路由"><a href="#静态路由" class="headerlink" title="静态路由"></a>静态路由</h3><p>如果你使用过Rails，Express，Ember，Angular等框架，那么你已经使用过了静态路由。 在这些框架中，当你在进行任何渲染之前，会将路由声明为应用初始化的一部分。React Router pre-v4在大多数情况下也是静态的。下面我们来看看如何在express中配置路由：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Express Style routing:</span></span><br><span class="line">app.get(<span class="string">"/"</span>, handleIndex);</span><br><span class="line">app.get(<span class="string">"/invoices"</span>, handleInvoices);</span><br><span class="line">app.get(<span class="string">"/invoices/:id"</span>, handleInvoice);</span><br><span class="line">app.get(<span class="string">"/invoices/:id/edit"</span>, handleInvoiceEdit);</span><br><span class="line"></span><br><span class="line">app.listen();</span><br></pre></td></tr></table></figure></p>
+<p>请注意在应用监听请求之前是如何声明路由的。我们使用的客户端路由与其是相似当。在Angular中，你可以预先声明路由，然后在渲染之前将它们导入顶级AppModule中：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Angular Style routing:</span></span><br><span class="line"><span class="keyword">const</span> appRoutes: Routes = [</span><br><span class="line">  &#123;</span><br><span class="line">    path: <span class="string">"crisis-center"</span>,</span><br><span class="line">    component: CrisisListComponent</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    path: <span class="string">"hero/:id"</span>,</span><br><span class="line">    component: HeroDetailComponent</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    path: <span class="string">"heroes"</span>,</span><br><span class="line">    component: HeroListComponent,</span><br><span class="line">    data: &#123; <span class="attr">title</span>: <span class="string">"Heroes List"</span> &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    path: <span class="string">""</span>,</span><br><span class="line">    redirectTo: <span class="string">"/heroes"</span>,</span><br><span class="line">    pathMatch: <span class="string">"full"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    path: <span class="string">"**"</span>,</span><br><span class="line">    component: PageNotFoundComponent</span><br><span class="line">  &#125;</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line">@NgModule(&#123;</span><br><span class="line">  imports: [RouterModule.forRoot(appRoutes)]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="class"><span class="keyword">class</span> <span class="title">AppModule</span> </span>&#123;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Ember有一个常规的routes.js文件，在构建时会读取这个文件当内容并导入到应用中。这会在应用渲染前进行。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Ember Style Router:</span></span><br><span class="line">Router.map(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.route(<span class="string">"about"</span>);</span><br><span class="line">  <span class="keyword">this</span>.route(<span class="string">"contact"</span>);</span><br><span class="line">  <span class="keyword">this</span>.route(<span class="string">"rentals"</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.route(<span class="string">"show"</span>, &#123; <span class="attr">path</span>: <span class="string">"/:rental_id"</span> &#125;);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> Router;</span><br></pre></td></tr></table></figure></p>
+<p>尽管API不同，但她们都遵循“静态路由”模型。React Router遵循这个模型直到v4。但是要成功使用React Router，你需要忘记这一切。</p>
+<h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>坦率地说，我们React Router直到v2版本所采取的开发方向感到非常沮丧。 我们（Michael和Ryan）感觉现在采用的这种路由方式受限于API，我们正在重新实现React（生命周期等）的部分，并且它与React给我们创造UI的心智模型不匹配。当我们在研讨会之前在一家酒店的走廊互相讨论时。我们互相问道：“如果我们使用我们在之前讨论的模式构建路由会是什么样子？”开发只需要几个小时，我们就有了一个验证的概念，我们知道她是未来我们想要路由。 我们最终意识到API并不应该在React的“外部”，这是一个由React的其余部分组成并自然落实到位的API。我们认为你会喜欢她。</p>
+<h3 id="动态路由"><a href="#动态路由" class="headerlink" title="动态路由"></a>动态路由</h3><p>动态路由指的是在应用渲染时发生的路由，而不是在正在运行的应用之外配置或规定好的路由。这意味着几乎所有东西都是React Router中的一个组件。接下来看一下这个API是如何工作的：  </p>
+<p>首先，创建一个路由组件，将其渲染在应用的顶部。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// react-native</span></span><br><span class="line"><span class="keyword">import</span> &#123; NativeRouter &#125; <span class="keyword">from</span> <span class="string">"react-router-native"</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// react-dom (what we'll use here)</span></span><br><span class="line"><span class="keyword">import</span> &#123; BrowserRouter &#125; <span class="keyword">from</span> <span class="string">"react-router-dom"</span>;</span><br><span class="line"></span><br><span class="line">ReactDOM.render(</span><br><span class="line">  &lt;BrowserRouter&gt;</span><br><span class="line">    &lt;App /&gt;</span><br><span class="line">  &lt;<span class="regexp">/BrowserRouter&gt;,</span></span><br><span class="line"><span class="regexp">  el</span></span><br><span class="line"><span class="regexp">);</span></span><br></pre></td></tr></table></figure></p>
+<p>接下来，创建一个链接组件将其链接到一个新的地址。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> App = <span class="function"><span class="params">()</span> =&gt;</span> (</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;nav&gt;</span><br><span class="line">      &lt;Link to=<span class="string">"/dashboard"</span>&gt;Dashboard&lt;<span class="regexp">/Link&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>nav&gt;</span><br><span class="line">  &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">);</span></span><br></pre></td></tr></table></figure></p>
+<p>最后，当用户查看‘/dashboard’路径时，渲染该路由并展示对应UI<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> App = <span class="function"><span class="params">()</span> =&gt;</span> (</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;nav&gt;</span><br><span class="line">      &lt;Link to=<span class="string">"/dashboard"</span>&gt;Dashboard&lt;<span class="regexp">/Link&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>nav&gt;</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;Route path=<span class="string">"/dashboard"</span> component=&#123;Dashboard&#125; /&gt;</span><br><span class="line">    &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">  &lt;/</span>div&gt;</span><br><span class="line">);</span><br></pre></td></tr></table></figure></p>
+<p>Route将渲染<dashboard {... props}>，props是一些看起来像{match，location，history}这样的特定的路由的属性。如果用户不在‘/dashboard’路径下，那么Route将不渲染任何东西。这就是它的全部内容。</dashboard></p>
+<h3 id="嵌套路由"><a href="#嵌套路由" class="headerlink" title="嵌套路由"></a>嵌套路由</h3><p>很多路由库都有一些“嵌套路由”的概念。如果你使用过React Router V4以前的版本，那么你就会知道我们也是这样做的。然而当你从静态路由配置移动到动态渲染路由时，该如何“嵌套路由”呢？<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> App = <span class="function"><span class="params">()</span> =&gt;</span> (</span><br><span class="line">  &lt;BrowserRouter&gt;</span><br><span class="line">    &#123;<span class="comment">/* here's a div */</span>&#125;</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &#123;<span class="comment">/* here's a Route */</span>&#125;</span><br><span class="line">      &lt;Route path=<span class="string">"/tacos"</span> component=&#123;Tacos&#125; /&gt;</span><br><span class="line">    &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">  &lt;/</span>BrowserRouter&gt;</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">// when the url matches `/tacos` this component renders</span></span><br><span class="line"><span class="keyword">const</span> Tacos = <span class="function">(<span class="params">&#123; match &#125;</span>) =&gt;</span> (</span><br><span class="line">  <span class="comment">// here's a nested div</span></span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &#123;<span class="comment">/* here's a nested Route,</span></span><br><span class="line"><span class="comment">        match.url helps us make a relative path */</span>&#125;</span><br><span class="line">    &lt;Route path=&#123;match.url + <span class="string">"/carnitas"</span>&#125; component=&#123;Carnitas&#125; /&gt;</span><br><span class="line">  &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">);</span></span><br></pre></td></tr></table></figure></p>
+<p>如上代码，React Router并没有嵌套的API，Router仅仅是一个组件，就想一个普通的div一样。</p>
+<h3 id="响应路由"><a href="#响应路由" class="headerlink" title="响应路由"></a>响应路由</h3><p>设想一下用户导航到’/invoice’。你的应用需要适用于不同的尺寸的屏幕，当她们具有较窄的视口时，你只需向其显示发票列表和到发票详情的链接。她们可以导航到更深入的层级。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">Small Screen</span><br><span class="line">url: <span class="regexp">/invoices</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">+----------------------+</span></span><br><span class="line"><span class="regexp">|                      |</span></span><br><span class="line"><span class="regexp">|      Dashboard       |</span></span><br><span class="line"><span class="regexp">|                      |</span></span><br><span class="line"><span class="regexp">+----------------------+</span></span><br><span class="line"><span class="regexp">|                      |</span></span><br><span class="line"><span class="regexp">|      Invoice 01      |</span></span><br><span class="line"><span class="regexp">|                      |</span></span><br><span class="line"><span class="regexp">+----------------------+</span></span><br><span class="line"><span class="regexp">|                      |</span></span><br><span class="line"><span class="regexp">|      Invoice 02      |</span></span><br><span class="line"><span class="regexp">|                      |</span></span><br><span class="line"><span class="regexp">+----------------------+</span></span><br><span class="line"><span class="regexp">|                      |</span></span><br><span class="line"><span class="regexp">|      Invoice 03      |</span></span><br><span class="line"><span class="regexp">|                      |</span></span><br><span class="line"><span class="regexp">+----------------------+</span></span><br><span class="line"><span class="regexp">|                      |</span></span><br><span class="line"><span class="regexp">|      Invoice 04      |</span></span><br><span class="line"><span class="regexp">|                      |</span></span><br><span class="line"><span class="regexp">+----------------------+</span></span><br></pre></td></tr></table></figure></p>
+<p>在更大的屏幕上，我们会想要显示一个类别-详细内容的视图，其中导航位于左侧，详情或特定发票显示在右侧。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">Large Screen</span><br><span class="line">url: <span class="regexp">/invoices/</span>dashboard</span><br><span class="line"></span><br><span class="line">+----------------------+---------------------------+</span><br><span class="line">|                      |                           |</span><br><span class="line">|      Dashboard       |                           |</span><br><span class="line">|                      |   Unpaid:             <span class="number">5</span>   |</span><br><span class="line">+----------------------+                           |</span><br><span class="line">|                      |   Balance:   $<span class="number">53</span>,<span class="number">543.00</span>   |</span><br><span class="line">|      Invoice <span class="number">01</span>      |                           |</span><br><span class="line">|                      |   Past Due:           <span class="number">2</span>   |</span><br><span class="line">+----------------------+                           |</span><br><span class="line">|                      |                           |</span><br><span class="line">|      Invoice <span class="number">02</span>      |                           |</span><br><span class="line">|                      |   +-------------------+   |</span><br><span class="line">+----------------------+   |                   |   |</span><br><span class="line">|                      |   |  +    +     +     |   |</span><br><span class="line">|      Invoice <span class="number">03</span>      |   |  | +  |     |     |   |</span><br><span class="line">|                      |   |  | |  |  +  |  +  |   |</span><br><span class="line">+----------------------+   |  | |  |  |  |  |  |   |</span><br><span class="line">|                      |   +--+-+--+--+--+--+--+   |</span><br><span class="line">|      Invoice <span class="number">04</span>      |                           |</span><br><span class="line">|                      |                           |</span><br><span class="line">+----------------------+---------------------------+</span><br></pre></td></tr></table></figure></p>
+<p>现在暂停考虑一下两种屏幕尺寸的/invoice URL,她是大尺寸屏幕的有效路由吗？我们应该把右边的东西放在什么位置？<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">Large Screen</span><br><span class="line">url: <span class="regexp">/invoices</span></span><br><span class="line"><span class="regexp">+----------------------+---------------------------+</span></span><br><span class="line"><span class="regexp">|                      |                           |</span></span><br><span class="line"><span class="regexp">|      Dashboard       |                           |</span></span><br><span class="line"><span class="regexp">|                      |                           |</span></span><br><span class="line"><span class="regexp">+----------------------+                           |</span></span><br><span class="line"><span class="regexp">|                      |                           |</span></span><br><span class="line"><span class="regexp">|      Invoice 01      |                           |</span></span><br><span class="line"><span class="regexp">|                      |                           |</span></span><br><span class="line"><span class="regexp">+----------------------+                           |</span></span><br><span class="line"><span class="regexp">|                      |                           |</span></span><br><span class="line"><span class="regexp">|      Invoice 02      |             ???           |</span></span><br><span class="line"><span class="regexp">|                      |                           |</span></span><br><span class="line"><span class="regexp">+----------------------+                           |</span></span><br><span class="line"><span class="regexp">|                      |                           |</span></span><br><span class="line"><span class="regexp">|      Invoice 03      |                           |</span></span><br><span class="line"><span class="regexp">|                      |                           |</span></span><br><span class="line"><span class="regexp">+----------------------+                           |</span></span><br><span class="line"><span class="regexp">|                      |                           |</span></span><br><span class="line"><span class="regexp">|      Invoice 04      |                           |</span></span><br><span class="line"><span class="regexp">|                      |                           |</span></span><br><span class="line"><span class="regexp">+----------------------+---------------------------+</span></span><br></pre></td></tr></table></figure></p>
+<p>在大屏幕上，’/invoice’不是有效的路线，但在小屏幕上她是有效的，更有趣的是，请考虑一个拥尺寸手机的人。她/他可以用横屏和竖屏两种方式来查看手机页面。突然间，我们有足够的空间来显示类别-详情这种UI，所以你应该立即重定向！  </p>
+<p>React Router在先前版本的静态路由并没有真正成功的答案。但是，当路由是动态的时，你可以声明性地重组这些功能。如果你开始考虑将路由作为UI而不是静态配置，那么你会写出以下代码：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> App = <span class="function"><span class="params">()</span> =&gt;</span> (</span><br><span class="line">  &lt;AppLayout&gt;</span><br><span class="line">    &lt;Route path=<span class="string">"/invoices"</span> component=&#123;Invoices&#125; /&gt;</span><br><span class="line">  &lt;<span class="regexp">/AppLayout&gt;</span></span><br><span class="line"><span class="regexp">);</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">const Invoices = () =&gt; (</span></span><br><span class="line"><span class="regexp">  &lt;Layout&gt;</span></span><br><span class="line"><span class="regexp">    &#123;/</span>* always show the nav *<span class="regexp">/&#125;</span></span><br><span class="line"><span class="regexp">    &lt;InvoicesNav /</span>&gt;</span><br><span class="line"></span><br><span class="line">    &lt;Media query=&#123;PRETTY_SMALL&#125;&gt;</span><br><span class="line">      &#123;screenIsSmall =&gt;</span><br><span class="line">        screenIsSmall ? (</span><br><span class="line">          <span class="comment">// small screen has no redirect</span></span><br><span class="line">          &lt;Switch&gt;</span><br><span class="line">            &lt;Route exact path=<span class="string">"/invoices/dashboard"</span> component=&#123;Dashboard&#125; /&gt;</span><br><span class="line">            &lt;Route path=<span class="string">"/invoices/:id"</span> component=&#123;Invoice&#125; /&gt;</span><br><span class="line">          &lt;<span class="regexp">/Switch&gt;</span></span><br><span class="line"><span class="regexp">        ) : (</span></span><br><span class="line"><span class="regexp">          /</span><span class="regexp">/ large screen does!</span></span><br><span class="line"><span class="regexp">          &lt;Switch&gt;</span></span><br><span class="line"><span class="regexp">            &lt;Route exact path="/i</span>nvoices/dashboard<span class="string">" component=&#123;Dashboard&#125; /&gt;</span></span><br><span class="line"><span class="string">            &lt;Route path="</span>/invoices/:id<span class="string">" component=&#123;Invoice&#125; /&gt;</span></span><br><span class="line"><span class="string">            &lt;Redirect from="</span>/invoices<span class="string">" to="</span>/invoices/dashboard<span class="string">" /&gt;</span></span><br><span class="line"><span class="string">          &lt;/Switch&gt;</span></span><br><span class="line"><span class="string">        )</span></span><br><span class="line"><span class="string">      &#125;</span></span><br><span class="line"><span class="string">    &lt;/Media&gt;</span></span><br><span class="line"><span class="string">  &lt;/Layout&gt;</span></span><br><span class="line"><span class="string">);</span></span><br></pre></td></tr></table></figure></p>
+<p>当用户将手机从纵向旋转到横向时，此代码会自动将其重定向到详情页。该组有效路由将根据用户手中的移动设备的动态特性而改变。  </p>
+<p>这只是一个例子。我们还有许多其他问题可以讨论，我们总结一下规律：我们应该考虑组件，而不是静态路由。考虑如何使用React的声明可组合性来解决问题，因为几乎每个“React Router问题”都可能是“React问题”。</p>
+
+    </div>
+    
+    <div class="post-footer">
+        <div>
+            
+            转载声明：
+            商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="https://www.jianshu.com/u/231315b8e406" target="_blank">Fengzhen8023</a>
+            
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+<div class="article-nav prev-next-wrap clearfix">
+    
+    <a href="/2019/12/15/React Router V5 翻译文档5：滚动恢复/" class="pre-post btn btn-default" title='React Router V5 翻译文档5：滚动恢复'>
+        <span class="remove-hidden-lg">上一篇</span>
+        <span class="hidden-xs">
+            React Router V5 翻译文档5：滚动恢复</span>
+    </a>
+    
+    
+    <a href="/2019/12/15/React Router V5 翻译文档7：测试/" class="next-post btn btn-default" title='React Router V5 翻译文档7：测试'>
+        <span class="remove-hidden-lg">下一篇</span>
+        <span class="hidden-xs">
+            React Router V5 翻译文档7：测试</span></i>
+    </a>
+    
+</div>
+
+<div id="comments">
+    
+
+<div id="vcomments" class="valine"></div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+<script>
+new Valine({
+    av: AV,
+    el: '#vcomments',
+    appId: 'xOKV9J4UeQAtVkvnJC7Kq2Jn-gzGzoHsz',
+    appKey: 'erIpQac4azoCmgfBB7Dl9maa',
+    placeholder: '说点什么吧',
+    notify: false,
+    verify: true,
+    avatar: 'mm',
+    meta: 'nick,mail'.split(','),
+    pageSize: '10',
+    path: window.location.pathname,
+    lang: 'en'.toLowerCase()
+})
+</script>
+
+
+</div>
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">
+            Table of Contents
+        </h3>
+        
+        <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#转载说明"><span class="toc-text">转载说明</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#设计思想"><span class="toc-text">设计思想</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#静态路由"><span class="toc-text">静态路由</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#背景"><span class="toc-text">背景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#动态路由"><span class="toc-text">动态路由</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#嵌套路由"><span class="toc-text">嵌套路由</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#响应路由"><span class="toc-text">响应路由</span></a>
+        
+    </div>
+</aside>
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+<a id="back-to-top" class="icon-btn hide">
+    <i class="iconfont icon-top"></i>
+</a>
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy;
+                    2017
+                    
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+</body>
+</html>

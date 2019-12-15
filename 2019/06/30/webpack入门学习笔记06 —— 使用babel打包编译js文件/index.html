@@ -1,0 +1,334 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="Fengzhen8023">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.2.3">
+    <meta name="root" content="/">
+    <link rel="dns-prefetch" href="http://yoursite.com">
+    <!--SEO-->
+
+<meta name="keywords" content="Webpack,前端">
+
+
+<meta name="description" content="1. 写在前面在前端项目中，占主导地位的文件，我想应该是 .js 文件。随着 JS语言 的不断升级改进，越来越多的高级语法被加入到该语言中，比如我们熟知的 ES6语法、ES7语法 等。
+虽然  ...">
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+    <!--Title-->
+
+<title>
+    
+    webpack入门学习笔记01 —— webpack基本简介 |
+    
+    Fengzhen8023
+</title>
+
+<link rel="alternate" href="/atom.xml" title="Fengzhen8023" type="application/atom+xml">
+
+
+<link rel="icon" href="/favicon.ico">
+
+    
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.7.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+<link rel="stylesheet" href="/fonts/iconfont.css">
+    
+<div class="hide">
+    <script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+</div>
+
+
+
+
+    
+
+</head></html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+<body>
+    <header class="main-header"  >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='John Doe'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+            <!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+            <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+        </div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                        <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://yoursite.com">
+                        Fengzhen8023</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/"><i class="fa "></i>
+                                Home</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/React/"><i class="fa "></i>
+                                React</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/Webpack/"><i class="fa "></i>
+                                Webpack</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/Python/"><i class="fa "></i>
+                                Python</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/userfulTools/"><i class="fa "></i>
+                                实用工具</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/archives/"><i class="fa "></i>
+                                时间轴</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="webpack入门学习笔记01 —— webpack基本简介">
+            
+            webpack入门学习笔记01 —— webpack基本简介
+            
+        </h1>
+        <div class="post-meta">
+    
+    <span class="categories-meta fa-wrap">
+        <i class="iconfont icon-wulumuqishigongandashujuguanlipingtai-ico-"></i>
+        <a class="category-link" href="/categories/Webpack/">Webpack</a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="iconfont icon-biaoqian"></i>
+        <span class="tags-meta">
+            
+            <a class="tag-link" href="/tags/Webpack/">Webpack</a> <a class="tag-link" href="/tags/前端/">前端</a>
+            
+        </span>
+    </span>
+    
+    
+    
+    <span class="fa-wrap">
+        <i class="iconfont icon-date"></i>
+        <span class="date-meta">
+            2019/06/30</span>
+    </span>
+    
+    
+</div>
+        
+        
+    </div>
+    
+    <div class="post-body post-content">
+        <h2 id="1-写在前面"><a href="#1-写在前面" class="headerlink" title="1. 写在前面"></a>1. 写在前面</h2><p>在前端项目中，占主导地位的文件，我想应该是 <strong>.js</strong> 文件。随着 <strong>JS语言</strong> 的不断升级改进，越来越多的高级语法被加入到该语言中，比如我们熟知的 <strong>ES6语法、ES7语法</strong> 等。</p>
+<p>虽然  <strong>ES6语法、ES7语法</strong> 我们写起来感觉非常方便，但是目前市面上的浏览器却不认识这些语法，这就导致我们辛辛苦苦做出来的项目却不能运行，让人很抓狂。这个时候我们要怎么办呢？</p>
+<p>办法肯定是有的，我们可以借助webpack这一工具，来将这些高级语法，转换成浏览器能够识别的低级语法（如ES5语法），这样就可以使项目正常运行了。而webpack之所以能够做到这一点，是因为它使用了 <strong>babel</strong> 这一工具。这是一个什么工具呢？这篇博客就会来讲解。</p>
+<p>为了方便不同的读者都能从这篇博客中有所收获，本篇博客准备在前半部分介绍如何在webpack中配置 <strong>babel</strong> 来编译转换高版本语法，在后半部分会讲解关于 <strong>babel</strong> 的知识。大家各取所需，根据自己的实际情况来选择阅读哪一部分。</p>
+<h2 id="2-在webpack中配置babel，编译高本版JS语法"><a href="#2-在webpack中配置babel，编译高本版JS语法" class="headerlink" title="2. 在webpack中配置babel，编译高本版JS语法"></a>2. 在webpack中配置babel，编译高本版JS语法</h2><p>既然要使用 <strong>babel</strong> 我们就要先安装这些依赖包，这里我们需要安装三个包：<strong>babel-loader 、 @babel/core 、 @babel/preset-env</strong> ，安装命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add babel-loader @babel/core @babel/preset-env -D</span><br></pre></td></tr></table></figure>
+<p>简单介绍一下这是三个包的：<strong>babel-loader</strong> 和 <strong>@babel/core</strong> 是核心插件。<strong>@babel/preset-env</strong> 是babel的 <strong>预设</strong> ，它的主要功能是将 <strong>ES6</strong> 语法转成 <strong>ES5</strong> 语法。</p>
+<p>依赖包安装完成之后，要到 <strong>webpack.config.js</strong> 文件中进行配置，配置的步骤和前面博客中讲述的配置 <strong>.css</strong> 文件的步骤类似，这里直接给出配置代码（重点关注有注释的部分）</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> path = <span class="built_in">require</span>(<span class="string">"path"</span>);</span><br><span class="line"><span class="keyword">let</span> HtmlWebpackPlugin = <span class="built_in">require</span>(<span class="string">"html-webpack-plugin"</span>)</span><br><span class="line"><span class="keyword">let</span> MiniCssExtract = <span class="built_in">require</span>(<span class="string">'mini-css-extract-plugin'</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    devServer: &#123;</span><br><span class="line">        port: <span class="number">3000</span>,  </span><br><span class="line">        progress: <span class="literal">true</span>,  </span><br><span class="line">        contentBase: <span class="string">"./build"</span>,  </span><br><span class="line">        compress: <span class="literal">true</span>  </span><br><span class="line">    &#125;,</span><br><span class="line">    mode: <span class="string">"development"</span>,  </span><br><span class="line">    entry: <span class="string">"./src/index.js"</span>,  </span><br><span class="line">    output: &#123;  </span><br><span class="line">        filename: <span class="string">"index.js"</span>,  </span><br><span class="line">        path: path.resolve(__dirname, <span class="string">"build"</span>)  </span><br><span class="line">    &#125;,</span><br><span class="line">    plugins: [</span><br><span class="line">        <span class="keyword">new</span> HtmlWebpackPlugin(&#123;</span><br><span class="line">            template: <span class="string">'./src/index.html'</span>,</span><br><span class="line">            filename: <span class="string">'index.html'</span>,</span><br><span class="line">            minify: &#123;</span><br><span class="line">                removeAttributeQuotes: <span class="literal">true</span>,</span><br><span class="line">                collapseWhitespace: <span class="literal">true</span></span><br><span class="line">            &#125;,</span><br><span class="line">            hash: <span class="literal">true</span></span><br><span class="line">        &#125;),</span><br><span class="line">        <span class="keyword">new</span> MiniCssExtract(&#123;</span><br><span class="line">            filename: <span class="string">'main.css'</span></span><br><span class="line">        &#125;)</span><br><span class="line">    ],</span><br><span class="line">    <span class="built_in">module</span>: &#123;</span><br><span class="line">        rules: [&#123;</span><br><span class="line">                test: <span class="regexp">/\.css$/</span>,</span><br><span class="line">                use: [</span><br><span class="line">                    MiniCssExtract.loader,</span><br><span class="line">                    <span class="string">'css-loader'</span>,</span><br><span class="line">                    <span class="string">'postcss-loader'</span></span><br><span class="line">                ]</span><br><span class="line">            &#125;,</span><br><span class="line">            &#123;</span><br><span class="line">                test: <span class="regexp">/\.less$/</span>,</span><br><span class="line">                use: [</span><br><span class="line">                    MiniCssExtract.loader,</span><br><span class="line">                    <span class="string">'css-loader'</span>,</span><br><span class="line">                    <span class="string">'less-loader'</span>,</span><br><span class="line">                    <span class="string">'postcss-loader'</span></span><br><span class="line">                ]</span><br><span class="line">            &#125;,</span><br><span class="line">            &#123;</span><br><span class="line">                test: <span class="regexp">/\.js$/</span>,      <span class="comment">// 匹配js文件，然后用下面所配置的工具对这些文件进行编译处理</span></span><br><span class="line">                use: &#123;</span><br><span class="line">                    loader: <span class="string">'babel-loader'</span>,     <span class="comment">// babel的核心模块</span></span><br><span class="line">                    options: &#123;</span><br><span class="line">                        presets: [              <span class="comment">// 配置babel的预设，将ES语法转成ES5语法</span></span><br><span class="line">                            <span class="string">'@babel/preset-env'</span></span><br><span class="line">                        ]</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>配置完成之后，我们就可以在项目中使用 <strong>ES6</strong> 语法来编写项目了。注意我这里说的是 <strong>ES6</strong> 语法，如果在项目中你使用了更新的 <strong>ES7</strong> 语法，仅靠上面的配置是不行的，在你进行打包编译的时候会报错，比如在项目中使用了以下的 <strong>ES7</strong> 语法：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> </span>&#123;</span><br><span class="line">    className = <span class="string">'A'</span> </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> a = <span class="keyword">new</span> A();</span><br></pre></td></tr></table></figure>
+<p>这个时候再进行打包编译的时候，会报错以下错误：根据提示，是因为我们没有安装所需要的依赖包。</p>
+<p><img src="http://q1d2135zd.bkt.clouddn.com//webpack-06-01.png" alt></p>
+<p>道理很简单，仅靠上面书写的 <strong>babel</strong> 配置，只能转换 <strong>ES6</strong> 语法，如果要转换更高版本的语法，就要进行其他配置，比如这里转换 <strong>ES7</strong> 语法。</p>
+<p>根据提示，我们需要安装所需的包：<strong>@babel/plugin-proposal-class-properties</strong> ，安装代码如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add @babel/plugin-proposal-class-properties -D</span><br></pre></td></tr></table></figure>
+<p>安装完成之后，修改 <strong>webpack.config.js</strong> 文件中的 <strong>babel</strong> 配置，修改后的代码如下:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    test: <span class="regexp">/\.js$/</span>,</span><br><span class="line">    use: &#123;</span><br><span class="line">        loader: <span class="string">'babel-loader'</span>,</span><br><span class="line">        options: &#123;</span><br><span class="line">            presets: [</span><br><span class="line">                <span class="string">'@babel/preset-env'</span></span><br><span class="line">            ],</span><br><span class="line">            plugins: [	<span class="comment">// 配置babel插件，转换更更高版本语法</span></span><br><span class="line">                <span class="string">'@babel/plugin-proposal-class-properties'</span></span><br><span class="line">            ]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>同理，如果你在项目中使用了其他的高级语法，比如 <strong>装饰器</strong> ，那么也是需要额外配置的，这里就不一一阐述，到时候你可根据webpack的报错信息，进行查找配置即可。</p>
+<p>到这里webpack打包编译 <strong>.js</strong> 文件的相关知识已经讲完，下面结合自己的认识，介绍一些 <strong>babel</strong> 的知识。</p>
+<h2 id="3-babel是个什么东西"><a href="#3-babel是个什么东西" class="headerlink" title="3. babel是个什么东西"></a>3. babel是个什么东西</h2><p>首先列出babel的中文官网，更多知识可查阅该官网：<strong><a href="https://www.babeljs.cn/" target="_blank" rel="noopener">https://www.babeljs.cn/</a></strong>  。</p>
+<p>根据官网的定义：Babel 是一个 <strong>工具链</strong> ，主要用于将 ECMAScript 2015+ 版本的代码转换为向后兼容的 JavaScript 语法，以便能够运行在当前和旧版本的浏览器或其他环境中。 在具体的实践中，babel可以帮我们做一下事情：</p>
+<ul>
+<li>语法转换</li>
+<li>通过 Polyfill 方式在目标环境中添加缺失的特性 (通过 <a href="https://www.babeljs.cn/docs/babel-polyfill" target="_blank" rel="noopener">@babel/polyfill</a> 模块)</li>
+<li>源码转换 (codemods)</li>
+<li>更多 …</li>
+</ul>
+<p>对于前端小白来说，上面的文字还不足以帮助他们了解babel，下面我用大白话来说一下：我们将babel类比成手机上使用的 <strong>中英词典APP</strong>。</p>
+<p>我们知道，手机上安装的 <strong>中英词典APP</strong> 可以帮助我们将不认识的英文翻译成我们熟知的汉语，这样我们就可以理解单词和句子表达的意义了。类似，<strong>babel</strong> 可以将我们写的 <strong>ES6</strong> 语法翻译成浏览器熟悉的 <strong>ES5</strong> 语法，这样，浏览器就可以知道这些 <strong>JS</strong> 代码要做什么事情了。比如下面的例子：</p>
+<p><img src="http://q1d2135zd.bkt.clouddn.com//webpack-06-02.png" alt></p>
+<p><strong>中英词典APP</strong> 在我们安装之初，就可以将英文成中文，是因为开发程序员在这个APP中预先设置了中英翻译功能。同理，<strong>babel</strong> 在配置之初就可以将 <strong>ES6</strong> 语法翻译成 <strong>ES5</strong> 语法，是因为我们在配置之初，给 <strong>babel</strong> 指定了 <strong>预设（presets）</strong> ，才使得 <strong>babel</strong> 可以做到这一点。</p>
+<p>默认状态下，<strong>中英词典APP</strong> 可以将英语翻译成汉语，但是不能将俄语翻译成汉语，因为程序员在开发之前，没有预先设置这个功能，如果我们想要这款APP也可以翻译俄语，那么就需要下载额外的 <strong>俄语翻译扩展包</strong> ，下载完成之后，就可以实现这个功能。</p>
+<p>同理，在默认配置下， <strong>babel</strong> 可以将 <strong>ES6</strong> 翻译成 <strong>ES5</strong> ，但是不能将 <strong>ES7</strong> 翻译成 <strong>ES5</strong>。这是因为在 <strong>babel</strong> 中有将 <strong>ES6</strong> 翻译成 <strong>ES5</strong> 的 <strong>预设（presets）</strong> ，没有将 <strong>ES7</strong> 翻译成 <strong>ES5</strong> 的 <strong>预设（presets）</strong> 。如果要实现这个功能，我们就需要下载配置额外的 <strong>插件</strong>，比如第一节提到的 <strong>@babel/plugin-proposal-class-properties</strong> 。<strong>插件</strong> 配置下载配置完成之后，就可以将 <strong>ES7</strong> 等更高级语法翻译成 <strong>ES5</strong> 语法。</p>
+<p>通过babel的中文官网，我们可以看到对于不同版本的语法，有不同的插件。相当于在 <strong>中英词典APP</strong> 中，对于不同的语言，有不同的扩展包，需要什么扩展包，我们下载即可。</p>
+<p><img src="http://q1d2135zd.bkt.clouddn.com//webpack-06-03.png" alt></p>
+<p>根据个人的经验，在使用这些插件的时候，项目开发之初不用配置。在打包编译的时候，如果报错了，再根据报错信息，查看缺少什么插件，然后再进行配置即可。当然，如果你经验很丰富，一开始就知道要使用那些插件，那么肯定要提前配置，</p>
+<h2 id="4-写在最后"><a href="#4-写在最后" class="headerlink" title="4. 写在最后"></a>4. 写在最后</h2><p>好了，以上就是本篇博客的所有内容了，只是个人学习过程中的一些心得体会，如果有不当的地方，还希望各位大神给出指点。</p>
+<p>如果你想深入学习 <strong>babel</strong> ，可以看他们官网的文档，个人觉得还是非常详细的：<strong><a href="https://www.babeljs.cn/docs/" target="_blank" rel="noopener">https://www.babeljs.cn/docs/</a></strong> </p>
+
+    </div>
+    
+    <div class="post-footer">
+        <div>
+            
+            转载声明：
+            商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="https://www.jianshu.com/u/231315b8e406" target="_blank">Fengzhen8023</a>
+            
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+<div class="article-nav prev-next-wrap clearfix">
+    
+    <a href="/2019/07/13/webpack入门学习笔记07 ——  关于babel的一些补充/" class="pre-post btn btn-default" title='webpack入门学习笔记07 ——  关于babel的一些补充'>
+        <span class="remove-hidden-lg">上一篇</span>
+        <span class="hidden-xs">
+            webpack入门学习笔记07 ——  关于babel的一些补充</span>
+    </a>
+    
+    
+    <a href="/2019/06/23/webpack入门学习笔记05 —— 使用webpack打包编译css文件/" class="next-post btn btn-default" title='webpack入门学习笔记05 —— 使用webpack打包编译css文件'>
+        <span class="remove-hidden-lg">下一篇</span>
+        <span class="hidden-xs">
+            webpack入门学习笔记05 —— 使用webpack打包编译css文件</span></i>
+    </a>
+    
+</div>
+
+<div id="comments">
+    
+
+<div id="vcomments" class="valine"></div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+<script>
+new Valine({
+    av: AV,
+    el: '#vcomments',
+    appId: 'xOKV9J4UeQAtVkvnJC7Kq2Jn-gzGzoHsz',
+    appKey: 'erIpQac4azoCmgfBB7Dl9maa',
+    placeholder: '说点什么吧',
+    notify: false,
+    verify: true,
+    avatar: 'mm',
+    meta: 'nick,mail'.split(','),
+    pageSize: '10',
+    path: window.location.pathname,
+    lang: 'en'.toLowerCase()
+})
+</script>
+
+
+</div>
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">
+            Table of Contents
+        </h3>
+        
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-写在前面"><span class="toc-text">1. 写在前面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-在webpack中配置babel，编译高本版JS语法"><span class="toc-text">2. 在webpack中配置babel，编译高本版JS语法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-babel是个什么东西"><span class="toc-text">3. babel是个什么东西</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-写在最后"><span class="toc-text">4. 写在最后</span></a></li></ol>
+        
+    </div>
+</aside>
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+<a id="back-to-top" class="icon-btn hide">
+    <i class="iconfont icon-top"></i>
+</a>
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy;
+                    2017
+                    
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+</body>
+</html>

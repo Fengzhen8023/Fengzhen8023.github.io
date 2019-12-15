@@ -1,0 +1,316 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="Fengzhen8023">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.2.3">
+    <meta name="root" content="/">
+    <link rel="dns-prefetch" href="http://yoursite.com">
+    <!--SEO-->
+
+<meta name="keywords" content="Webpack,前端">
+
+
+<meta name="description" content="1. 写在前面在前面的博客中我们说过，webpack之所以有这么强大的功能，是因为它借助了很多 loader 和 插件 的帮助。在之前webpack配置中，我们已经介绍了很多 loader 和 ...">
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+    <!--Title-->
+
+<title>
+    
+    webpack入门学习笔记15 —— Webpack中的三个小插件 |
+    
+    Fengzhen8023
+</title>
+
+<link rel="alternate" href="/atom.xml" title="Fengzhen8023" type="application/atom+xml">
+
+
+<link rel="icon" href="/favicon.ico">
+
+    
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.7.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+<link rel="stylesheet" href="/fonts/iconfont.css">
+    
+<div class="hide">
+    <script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+</div>
+
+
+
+
+    
+
+</head></html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+<body>
+    <header class="main-header"  >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='John Doe'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+            <!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+            <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+        </div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                        <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://yoursite.com">
+                        Fengzhen8023</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/"><i class="fa "></i>
+                                Home</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/React/"><i class="fa "></i>
+                                React</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/Webpack/"><i class="fa "></i>
+                                Webpack</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/Python/"><i class="fa "></i>
+                                Python</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/userfulTools/"><i class="fa "></i>
+                                实用工具</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/archives/"><i class="fa "></i>
+                                时间轴</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="webpack入门学习笔记15 —— Webpack中的三个小插件">
+            
+            webpack入门学习笔记15 —— Webpack中的三个小插件
+            
+        </h1>
+        <div class="post-meta">
+    
+    <span class="categories-meta fa-wrap">
+        <i class="iconfont icon-wulumuqishigongandashujuguanlipingtai-ico-"></i>
+        <a class="category-link" href="/categories/Webpack/">Webpack</a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="iconfont icon-biaoqian"></i>
+        <span class="tags-meta">
+            
+            <a class="tag-link" href="/tags/Webpack/">Webpack</a> <a class="tag-link" href="/tags/前端/">前端</a>
+            
+        </span>
+    </span>
+    
+    
+    
+    <span class="fa-wrap">
+        <i class="iconfont icon-date"></i>
+        <span class="date-meta">
+            2019/08/11</span>
+    </span>
+    
+    
+</div>
+        
+        
+    </div>
+    
+    <div class="post-body post-content">
+        <h2 id="1-写在前面"><a href="#1-写在前面" class="headerlink" title="1. 写在前面"></a>1. 写在前面</h2><p>在前面的博客中我们说过，webpack之所以有这么强大的功能，是因为它借助了很多 <strong>loader</strong> 和 <strong>插件</strong> 的帮助。在之前webpack配置中，我们已经介绍了很多 <strong>loader</strong> 和 <strong>插件</strong> ，在这里再介绍三种小插件，可以帮助我们更好地使用webpack构建项目。</p>
+<p>这三款插件分别是：CleanWebpackPlugin、CopyWebpackPlugin、BannerPlugin(webpack内置插件)。下面一一对这些插件进行介绍。</p>
+<h2 id="2-CleanWebpackPlugin"><a href="#2-CleanWebpackPlugin" class="headerlink" title="2. CleanWebpackPlugin"></a>2. CleanWebpackPlugin</h2><p>该插件的作用是：每次进行 <strong>build</strong> 的时候，将之前的dist目录下的代码清除，然后再打包生成新的代码文件。</p>
+<p>当我们在使用 <strong>build</strong> 命令进行打包编译项目的时候，webpack会根据配置信息，将打包编译好的项目输出到一个文件夹中(<strong>默认文件夹是dist</strong>) 。在项目的开发过程中，我们肯定会多次执行 <strong>build</strong> 命令，这个时候我们希望每次执行 <strong>build</strong> 命令的时候，都可以将之前打包生成的代码文件删除，然后生成最新的代码文件。</p>
+<p>但是实际情况却是之前的代码不会删除，比如：第一次打包编译项目，生成了a.js文件，第二次打包编译项目，生成了b.js文件。这个时候，a.js文件使用不到的，但该文件还是会存在dist文件夹下，这是我们不愿意看到的。</p>
+<p>这里我们可以借助CleanWebpackPlugin插件进行删除之前的文件，首先执行以下命令进行安装插件：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add clean-webpack-plugin -D</span><br></pre></td></tr></table></figure>
+<p>安装完成之后，在 <strong>webpack.config.js</strong> 文件中书写以下代码进行配置：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> CleanWebpackPlugin = <span class="built_in">require</span>(<span class="string">'clean-webpack-plugin'</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    <span class="comment">/* 节省篇幅，其余配置已省略 */</span></span><br><span class="line">    plugins: [</span><br><span class="line">        <span class="keyword">new</span> CleanWebpackPlugin([</span><br><span class="line">            <span class="string">'./dist'</span>	<span class="comment">// 指定你要清楚文件的目录，可以传入多个目录参数</span></span><br><span class="line">        ])</span><br><span class="line">    ]</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里将其他的配置规则省略了，如果你想看其他的配置规则，可以查看我的 <strong><a href="https://github.com/Fengzhen8023/webpack-learning" target="_blank" rel="noopener">GitHub仓库 - webpack-learning</a></strong> ,或者通过本文末尾的链接，跳转到我之前的博客中进行查看。</p>
+<h2 id="3-CopyWebpackPlugin"><a href="#3-CopyWebpackPlugin" class="headerlink" title="3.CopyWebpackPlugin"></a>3.CopyWebpackPlugin</h2><p>该插件的作用是：在每次进行 <strong>build</strong> 的时候，将某些静态资源复制到特定文件夹下。</p>
+<p>比如将一些特定的Excel文件，拷贝到<strong>dist</strong> 目录下，可以借助这款插件的帮助。使用这款插件，首先要执行以下命令进行安装：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add copy-webpack-plugin -D</span><br></pre></td></tr></table></figure>
+<p>配置代码也是非常简单，直接在 <strong>webpack.config.js</strong> 文件中书写以下代码：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> CopyWebpackPlugin = <span class="built_in">require</span>(<span class="string">'copy-webpack-plugin'</span>)</span><br><span class="line"></span><br><span class="line">modules.export = &#123;</span><br><span class="line">    <span class="comment">/* 节省篇幅，其余配置已省略 */</span></span><br><span class="line">    plugins: [</span><br><span class="line">        <span class="keyword">new</span> CopyWebpackPlugin([</span><br><span class="line">            <span class="comment">// 参数是数组，可以对多个位置的文件进行copy </span></span><br><span class="line">            &#123; <span class="attr">from</span>: <span class="string">'./doc'</span>, <span class="attr">to</span>: <span class="string">'./dist'</span> &#125;</span><br><span class="line">        ])</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里需要说明的是，这里的 <strong>from</strong> 和 <strong>to</strong> 属性根据自己的实际情况进行配置。</p>
+<h2 id="4-BannerPlugin-webpack内置插件"><a href="#4-BannerPlugin-webpack内置插件" class="headerlink" title="4. BannerPlugin(webpack内置插件)"></a>4. BannerPlugin(webpack内置插件)</h2><p>这是一款webpack的内置插件，作用是：代码版权声明插件，在编译好的 <strong>.js</strong> 文件的头部插入我们指定的版权声明文字，起到版权声明的作用。</p>
+<p>既然是webpack内置插件，所以我们不用额外进行安装，可以直接进行在 <strong>webpack.config.js</strong> 文件中进行配置，示例代码如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> webpack = <span class="built_in">require</span>(<span class="string">'wepack'</span>);</span><br><span class="line"></span><br><span class="line">modules.export = &#123;</span><br><span class="line">    plugins: [</span><br><span class="line">        <span class="comment">// 参数是你要一个字符串，值是你要添加的版权声明信息</span></span><br><span class="line">        <span class="keyword">new</span> webpack.BannerPlugin(<span class="string">'Made by Allen Feng'</span>)</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>配置完成之后，再次进行打包编译项目，就可以在生成的 <strong>.js</strong> 文件中看到我们的版权信息：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*! Made by Allen Feng */</span>!<span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;<span class="keyword">var</span> n=&#123;&#125;;<span class="function"><span class="keyword">function</span> <span class="title">t</span>(<span class="params">r</span>)</span>&#123;<span class="keyword">if</span>(n[r])<span class="keyword">return</span> n[r]......</span><br></pre></td></tr></table></figure>
+<h2 id="5-写在最后"><a href="#5-写在最后" class="headerlink" title="5. 写在最后"></a>5. 写在最后</h2><p>以上便是这三款小插件，可以帮助我们更好的使用webpack构建项目。</p>
+
+    </div>
+    
+    <div class="post-footer">
+        <div>
+            
+            转载声明：
+            商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="https://www.jianshu.com/u/231315b8e406" target="_blank">Fengzhen8023</a>
+            
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+<div class="article-nav prev-next-wrap clearfix">
+    
+    <a href="/2019/12/15/React Router V5 翻译文档10：API/" class="pre-post btn btn-default" title='React Router V5 翻译文档10：API'>
+        <span class="remove-hidden-lg">上一篇</span>
+        <span class="hidden-xs">
+            React Router V5 翻译文档10：API</span>
+    </a>
+    
+    
+    <a href="/2019/08/04/webpack入门学习笔记12 —— 打包编译后文件的引入路径问题/" class="next-post btn btn-default" title='webpack入门学习笔记12 —— 打包编译后文件的引入路径问题'>
+        <span class="remove-hidden-lg">下一篇</span>
+        <span class="hidden-xs">
+            webpack入门学习笔记12 —— 打包编译后文件的引入路径问题</span></i>
+    </a>
+    
+</div>
+
+<div id="comments">
+    
+
+<div id="vcomments" class="valine"></div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+<script>
+new Valine({
+    av: AV,
+    el: '#vcomments',
+    appId: 'xOKV9J4UeQAtVkvnJC7Kq2Jn-gzGzoHsz',
+    appKey: 'erIpQac4azoCmgfBB7Dl9maa',
+    placeholder: '说点什么吧',
+    notify: false,
+    verify: true,
+    avatar: 'mm',
+    meta: 'nick,mail'.split(','),
+    pageSize: '10',
+    path: window.location.pathname,
+    lang: 'en'.toLowerCase()
+})
+</script>
+
+
+</div>
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">
+            Table of Contents
+        </h3>
+        
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-写在前面"><span class="toc-text">1. 写在前面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-CleanWebpackPlugin"><span class="toc-text">2. CleanWebpackPlugin</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-CopyWebpackPlugin"><span class="toc-text">3.CopyWebpackPlugin</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-BannerPlugin-webpack内置插件"><span class="toc-text">4. BannerPlugin(webpack内置插件)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-写在最后"><span class="toc-text">5. 写在最后</span></a></li></ol>
+        
+    </div>
+</aside>
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+<a id="back-to-top" class="icon-btn hide">
+    <i class="iconfont icon-top"></i>
+</a>
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy;
+                    2017
+                    
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+</body>
+</html>

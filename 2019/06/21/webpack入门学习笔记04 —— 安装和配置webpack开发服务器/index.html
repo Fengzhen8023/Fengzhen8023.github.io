@@ -1,0 +1,336 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="Fengzhen8023">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.2.3">
+    <meta name="root" content="/">
+    <link rel="dns-prefetch" href="http://yoursite.com">
+    <!--SEO-->
+
+<meta name="keywords" content="Webpack,前端">
+
+
+<meta name="description" content="1. 写在前面在之前的博客中，每次使用webpack打包编译完成之后，我们都需要手动打开编译后的index.html文件，这样对于前端开发的调试很不方便。为了解决这一问题，webpack给出了 ...">
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+    <!--Title-->
+
+<title>
+    
+    webpack入门学习笔记04 —— 安装和配置webpack开发服务器 |
+    
+    Fengzhen8023
+</title>
+
+<link rel="alternate" href="/atom.xml" title="Fengzhen8023" type="application/atom+xml">
+
+
+<link rel="icon" href="/favicon.ico">
+
+    
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.7.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+<link rel="stylesheet" href="/fonts/iconfont.css">
+    
+<div class="hide">
+    <script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+</div>
+
+
+
+
+    
+
+</head></html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+<body>
+    <header class="main-header"  >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='John Doe'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+            <!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+            <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+        </div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                        <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://yoursite.com">
+                        Fengzhen8023</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/"><i class="fa "></i>
+                                Home</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/React/"><i class="fa "></i>
+                                React</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/Webpack/"><i class="fa "></i>
+                                Webpack</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/Python/"><i class="fa "></i>
+                                Python</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/userfulTools/"><i class="fa "></i>
+                                实用工具</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/archives/"><i class="fa "></i>
+                                时间轴</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="webpack入门学习笔记04 —— 安装和配置webpack开发服务器">
+            
+            webpack入门学习笔记04 —— 安装和配置webpack开发服务器
+            
+        </h1>
+        <div class="post-meta">
+    
+    <span class="categories-meta fa-wrap">
+        <i class="iconfont icon-wulumuqishigongandashujuguanlipingtai-ico-"></i>
+        <a class="category-link" href="/categories/Webpack/">Webpack</a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="iconfont icon-biaoqian"></i>
+        <span class="tags-meta">
+            
+            <a class="tag-link" href="/tags/Webpack/">Webpack</a> <a class="tag-link" href="/tags/前端/">前端</a>
+            
+        </span>
+    </span>
+    
+    
+    
+    <span class="fa-wrap">
+        <i class="iconfont icon-date"></i>
+        <span class="date-meta">
+            2019/06/21</span>
+    </span>
+    
+    
+</div>
+        
+        
+    </div>
+    
+    <div class="post-body post-content">
+        <h2 id="1-写在前面"><a href="#1-写在前面" class="headerlink" title="1. 写在前面"></a>1. 写在前面</h2><p>在之前的博客中，每次使用webpack打包编译完成之后，我们都需要手动打开编译后的index.html文件，这样对于前端开发的调试很不方便。为了解决这一问题，webpack给出了 <strong>开发服务器</strong> 这一方案。在进行开发的过程中，我们可以使用webpack启动一个开发服务器，来实时查看自己的项目，很方便进行调试。</p>
+<p>相信很多前端开发者都用过webpack的开发服务器，但是有些开发者不是很了解它。那么在这篇文章中，我就给大家介绍webpack的开发服务器，主要内容包括：</p>
+<ul>
+<li>安装webpack的开发服务器</li>
+<li>初步配置webpack的开发服务器</li>
+<li>深入配置webpack的开发服务器</li>
+</ul>
+<h2 id="2-安装webpack的开发服务器"><a href="#2-安装webpack的开发服务器" class="headerlink" title="2. 安装webpack的开发服务器"></a>2. 安装webpack的开发服务器</h2><p>首先执行一下命令来安装webpack的开发服务器：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add webpack-dev-server -D</span><br></pre></td></tr></table></figure>
+<p>安装完成之后，我们就可以通过 <strong><code>npx webpack-dev-server</code></strong> 命令启动开发服务器，或者在 <strong>package.json</strong> 文件中新建一条脚本，后续就可以很方便地使用 <strong>npm run</strong> 或 <strong>yarn</strong> 来启动开发服务器。脚本配置如下：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"name"</span>: <span class="string">"webpack-learning"</span>,</span><br><span class="line">  <span class="attr">"version"</span>: <span class="string">"1.0.0"</span>,</span><br><span class="line">  <span class="attr">"main"</span>: <span class="string">"index.js"</span>,</span><br><span class="line">  <span class="attr">"license"</span>: <span class="string">"MIT"</span>,</span><br><span class="line">  <span class="attr">"scripts"</span>: &#123;</span><br><span class="line">    <span class="attr">"build"</span>: <span class="string">"webpack --config webpack.config.js"</span>,</span><br><span class="line">    <span class="attr">"dev"</span>: <span class="string">"webpack-dev-server"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"devDependencies"</span>: &#123;</span><br><span class="line">    <span class="attr">"webpack"</span>: <span class="string">"^4.32.2"</span>,</span><br><span class="line">    <span class="attr">"webpack-cli"</span>: <span class="string">"^3.3.2"</span>,</span><br><span class="line">    <span class="attr">"webpack-dev-server"</span>: <span class="string">"^3.5.1"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>启动本地服务器之后，我们便可以在浏览器中通过 <strong><a href="http://localhost:8080" target="_blank" rel="noopener">http://localhost:8080</a></strong>  来访问项目了。截图如下：</p>
+<p><img src="http://q1d2135zd.bkt.clouddn.com//webpack-04-01.png" alt></p>
+<h2 id="3-初步配置webpack的开发服务器"><a href="#3-初步配置webpack的开发服务器" class="headerlink" title="3. 初步配置webpack的开发服务器"></a>3. 初步配置webpack的开发服务器</h2><p>现在开发服务器已经启动了，但是显而易见的是，当前的开发服务器使用的是默认配置，很大程度上不能满足我们开发的需求，比如：</p>
+<ul>
+<li>开发服务器不要使用8080端口号，使用其他的端口号</li>
+<li>开发服务器打开之后，不是在根目录下，而是在 <strong>build</strong> 目录下</li>
+<li>开发服务器启动之后，我希望自动打开浏览器</li>
+<li>……</li>
+</ul>
+<p>下面我们就讲解一下，如果初步配置开发服务器，完成上述需求。之所以说是初步配置，是因为开发服务器配置内容较多，后面准备单独写一篇博客，讲述开发服务器的详细配置。</p>
+<p>其实初步配置开发服务器很简单，在 <strong>webpack.config.json</strong> 文件中新增 <strong>devServer</strong> 属性，该属性是一个对象，我们将一些配置信息写到该对象下即可，配置代码如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> path = <span class="built_in">require</span>(<span class="string">"path"</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    devServer: &#123;</span><br><span class="line">        port: <span class="number">3000</span>,      		<span class="comment">// 指定开发服务器的端口号</span></span><br><span class="line">        progress: <span class="literal">true</span>, 		<span class="comment">// 显示开启本地服务器的进度</span></span><br><span class="line">        contentBase: <span class="string">"./build"</span>, <span class="comment">// 指定本地服务器默认打开的目录</span></span><br><span class="line">        compress: <span class="literal">true</span>      	<span class="comment">// 是否对代码进行压缩</span></span><br><span class="line">    &#125;,</span><br><span class="line">    mode: <span class="string">"development"</span>,    </span><br><span class="line">    entry: <span class="string">"./src/index.js"</span>,    </span><br><span class="line">    output: &#123;       </span><br><span class="line">        filename: <span class="string">"index.js"</span>,   </span><br><span class="line">        path: path.resolve(__dirname, <span class="string">"build"</span>)  </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>现在再次开启开发服务器，就可以通过 <strong><a href="http://localhost:3000" target="_blank" rel="noopener">http://localhost:3000</a></strong> 访问到项目的 <strong>build</strong> 目录了，默认寻找该目录下的 <strong>index.html</strong> 文件进行渲染，如果没有则展示该目录下的所有文件。</p>
+<h2 id="4-深入配置webpack的开发服务器"><a href="#4-深入配置webpack的开发服务器" class="headerlink" title="4. 深入配置webpack的开发服务器"></a>4. 深入配置webpack的开发服务器</h2><p>以上就是对webpack开发服务器的安装和初步配置，但是上述的初步配置存在一些问题：我们希望开发服务器启动之后，就会显示我们项目的页面，但是上述配置中，如果要看到项目的页面，一个前提是build目录下必须存在index.html文件。但是这个文件是打包编译后才生成的，所以在开发服务器环境下可能不会存在，而且也不会实时刷新，所以很明显初步配置不能满足我们的开发需求。</p>
+<p>正常情况下，我们希望看到的场景是：使用 <strong>npm run</strong> 或 <strong>yarn</strong> 来启动开发服务器之后，就可以实时看到项目的页面，如果项目有代码的更新，页面也要实时更新。要做到这一点，我们需要完成以下步骤：</p>
+<h4 id="1-安装-html-webpack-plugin-插件"><a href="#1-安装-html-webpack-plugin-插件" class="headerlink" title="1) 安装 html-webpack-plugin 插件"></a>1) 安装 html-webpack-plugin 插件</h4><p>执行 <strong><code>yarn add html-webpack-plugin -D</code></strong> 进行安装该插件</p>
+<h4 id="2）-配置-html-webpack-plugin-插件"><a href="#2）-配置-html-webpack-plugin-插件" class="headerlink" title="2） 配置 html-webpack-plugin 插件"></a>2） 配置 html-webpack-plugin 插件</h4><p>安装完成之后，我们就需要到 <strong>webpack.config.js</strong> 文件中配置该插件，其实webpack之所以有这么强大的功能，就是依靠各种各样的插件。所以在webpack配置文件中，肯定会有各种插件的相关配置。这里介绍  <strong>html-webpack-plugin</strong> 插件的配置，其他插件的配置如出一辙。</p>
+<p>首先在  <strong>webpack.config.js</strong> 文件中引入安装的  <strong>html-webpack-plugin</strong> 插件，然后新建一个 <strong>plugins</strong> 属性，该属性是一个数组，webpack使用到的插件，都要在这个数组中进行配置。我们先来看一下具体的配置代码：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> path = <span class="built_in">require</span>(<span class="string">"path"</span>);</span><br><span class="line"><span class="keyword">let</span> HtmlWebpackPlugin = <span class="built_in">require</span>(<span class="string">"html-webpack-plugin"</span>)		<span class="comment">// 引入安装的插件</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    devServer: &#123;</span><br><span class="line">        port: <span class="number">3000</span>,      		<span class="comment">// 指定开发服务器的端口号</span></span><br><span class="line">        progress: <span class="literal">true</span>, 		<span class="comment">// 显示开启本地服务器的进度</span></span><br><span class="line">        contentBase: <span class="string">"./build"</span>, <span class="comment">// 指定本地服务器默认打开的目录</span></span><br><span class="line">        compress: <span class="literal">true</span>      	<span class="comment">// 是否对代码进行压缩</span></span><br><span class="line">    &#125;,</span><br><span class="line">    mode: <span class="string">"development"</span>,    </span><br><span class="line">    entry: <span class="string">"./src/index.js"</span>,    </span><br><span class="line">    output: &#123;       </span><br><span class="line">        filename: <span class="string">"index.js"</span>,   </span><br><span class="line">        path: path.resolve(__dirname, <span class="string">"build"</span>)   </span><br><span class="line">    &#125;,</span><br><span class="line">    plugins: [</span><br><span class="line">        <span class="keyword">new</span> HtmlWebpackPlugin(&#123;</span><br><span class="line">            template: <span class="string">'./src/index.html'</span>,		<span class="comment">// 模板文件</span></span><br><span class="line">            filename: <span class="string">'index.html'</span>,				<span class="comment">// 开发服务器中生成的临时文件</span></span><br><span class="line">            minify: &#123;</span><br><span class="line">                removeAttributeQuotes: <span class="literal">true</span>,	<span class="comment">// 是否去除文件中的双引号</span></span><br><span class="line">                collapseWhitespace: <span class="literal">true</span>		<span class="comment">// 是否去除文件中的空行</span></span><br><span class="line">            &#125;,</span><br><span class="line">            hash: <span class="literal">true</span>		<span class="comment">// 引入文件的时候添加哈希值，防止缓存的问题</span></span><br><span class="line">        &#125;),</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>下面讲述一下以上文件中的一些配置选项：</p>
+<ul>
+<li><strong>template</strong>： 模板文件。webpack开发服务器启动的时候，会将项目的代码打包编译成一个或多个 <strong>.js</strong> 文件，但是这些文件不能直接在浏览器中打开，需要在一个 <strong>.html </strong>文件中引入，才能正常被浏览器渲染。模板文件就是这个 <strong>.html</strong> 。webpack打包编译后的 <strong>.js</strong> 脚本文件会自动地被引入到该模板文件中。</li>
+<li><strong>filename</strong>： 开发服务器中打包编译后生成的 <strong>临时文件</strong> 的文件名，默认是 <strong>index.html</strong> 。生成的这个文件是一个临时文件，存放在内存中，在项目中是看不到的。但是这个文件非常重要，当我们在浏览器中访问 <strong><a href="http://localhost:3000" target="_blank" rel="noopener">http://localhost:3000</a></strong> ，看到的页面，就是这个文件渲染出来的。同时这个文件也是模板文件和webpack打包后的 <strong>.js</strong> 文件结合生成的。</li>
+<li><strong>minify</strong>： 表示是否对打包编译生成的代码进行处理，比如去除空行、去除双引号等。</li>
+<li><strong>hash</strong>：哈希值。如果在模板文件中，直接引入打包编译后的 <strong>.js</strong> 文件，那么有的时候会受到缓存的影响，但是加上哈希值，就不会存在这个问题。如果不加hash值，在临时文件中引入 <strong>.js</strong> 文件可能是这个情况：<strong><code>&lt;script src=&quot;index.js&quot;&gt;&lt;/script&gt;</code></strong> ；如果加上了hash值，在临时文件中引入 <strong>.js</strong> 文件可能是这个情况：<strong><code>&lt;script src=&quot;index.js?fb39b867e8a90e7cc9ec&quot;&gt;&lt;/script&gt;</code></strong> 。有效解决了缓存带来的影响。</li>
+</ul>
+<p>这里需要说明的是， <strong>html-webpack-plugin</strong> 插件的配置不仅适用于开发服务器，再进行打包编译的时候，该插件的相关配置也会发挥作用，比如指定的模板、是否删除双引号、是否删除空行等。</p>
+<h4 id="3）-创建模板文件"><a href="#3）-创建模板文件" class="headerlink" title="3） 创建模板文件"></a>3） 创建模板文件</h4><p>在上述叙述中，我们知道在启动开发服务器的时候，要有一个模板文件，所以我们要在项目中创建一个模板文件。根据上面的配置要求，该文件是位于 <strong>src</strong> 文件夹下的 <strong>index.html</strong> 文件。参考代码如下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attr">content</span>=<span class="string">"ie=edge"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>这是一个模板文件<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">    </span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="5-后记"><a href="#5-后记" class="headerlink" title="5. 后记"></a>5. 后记</h2><p>以上就我在学习webpack过程中对开发服务器的一些总结。总的来说，开发服务器就是对当前项目进行打包编译，将生成的文件存放在内存中，然后起一个本地服务。我们在浏览器中访问这个本地服务（如 <strong><a href="http://localhost:3000" target="_blank" rel="noopener">http://localhost:3000</a></strong> ）来访问内存的 <strong>index.html</strong> 文件，进而看到我们的项目。</p>
+<p>而且，这个过程是实时热更新的，一旦项目代码有变化，开发服务器会自动进行打包编译，这样我们看到的项目就是最新的。</p>
+
+    </div>
+    
+    <div class="post-footer">
+        <div>
+            
+            转载声明：
+            商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="https://www.jianshu.com/u/231315b8e406" target="_blank">Fengzhen8023</a>
+            
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+<div class="article-nav prev-next-wrap clearfix">
+    
+    <a href="/2019/06/23/webpack入门学习笔记05 —— 使用webpack打包编译css文件/" class="pre-post btn btn-default" title='webpack入门学习笔记05 —— 使用webpack打包编译css文件'>
+        <span class="remove-hidden-lg">上一篇</span>
+        <span class="hidden-xs">
+            webpack入门学习笔记05 —— 使用webpack打包编译css文件</span>
+    </a>
+    
+    
+    <a href="/2019/06/19/webpack入门学习笔记03 —— 自定义脚本，帮助项目管理/" class="next-post btn btn-default" title='webpack入门学习笔记03 —— 自定义脚本，帮助项目管理'>
+        <span class="remove-hidden-lg">下一篇</span>
+        <span class="hidden-xs">
+            webpack入门学习笔记03 —— 自定义脚本，帮助项目管理</span></i>
+    </a>
+    
+</div>
+
+<div id="comments">
+    
+
+<div id="vcomments" class="valine"></div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+<script>
+new Valine({
+    av: AV,
+    el: '#vcomments',
+    appId: 'xOKV9J4UeQAtVkvnJC7Kq2Jn-gzGzoHsz',
+    appKey: 'erIpQac4azoCmgfBB7Dl9maa',
+    placeholder: '说点什么吧',
+    notify: false,
+    verify: true,
+    avatar: 'mm',
+    meta: 'nick,mail'.split(','),
+    pageSize: '10',
+    path: window.location.pathname,
+    lang: 'en'.toLowerCase()
+})
+</script>
+
+
+</div>
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">
+            Table of Contents
+        </h3>
+        
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-写在前面"><span class="toc-text">1. 写在前面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-安装webpack的开发服务器"><span class="toc-text">2. 安装webpack的开发服务器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-初步配置webpack的开发服务器"><span class="toc-text">3. 初步配置webpack的开发服务器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-深入配置webpack的开发服务器"><span class="toc-text">4. 深入配置webpack的开发服务器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-安装-html-webpack-plugin-插件"><span class="toc-text">1) 安装 html-webpack-plugin 插件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2）-配置-html-webpack-plugin-插件"><span class="toc-text">2） 配置 html-webpack-plugin 插件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3）-创建模板文件"><span class="toc-text">3） 创建模板文件</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-后记"><span class="toc-text">5. 后记</span></a></li></ol>
+        
+    </div>
+</aside>
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+<a id="back-to-top" class="icon-btn hide">
+    <i class="iconfont icon-top"></i>
+</a>
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy;
+                    2017
+                    
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+</body>
+</html>

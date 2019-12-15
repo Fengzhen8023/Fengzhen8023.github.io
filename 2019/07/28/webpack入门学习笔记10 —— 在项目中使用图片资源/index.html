@@ -1,0 +1,351 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="Fengzhen8023">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.2.3">
+    <meta name="root" content="/">
+    <link rel="dns-prefetch" href="http://yoursite.com">
+    <!--SEO-->
+
+<meta name="keywords" content="Webpack,前端">
+
+
+<meta name="description" content="1. 写在前面在前端项目中，图片是必不可少的一种资源。在使用图片的时候，我们可以有以下几种方式：
+
+在 .html 文件中，通过 &lt;img src=&quot;&quot; alt=&qu...">
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+    <!--Title-->
+
+<title>
+    
+    webpack入门学习笔记10 —— 在项目中使用图片资源 |
+    
+    Fengzhen8023
+</title>
+
+<link rel="alternate" href="/atom.xml" title="Fengzhen8023" type="application/atom+xml">
+
+
+<link rel="icon" href="/favicon.ico">
+
+    
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.7.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+<link rel="stylesheet" href="/fonts/iconfont.css">
+    
+<div class="hide">
+    <script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+</div>
+
+
+
+
+    
+
+</head></html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+<body>
+    <header class="main-header"  >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='John Doe'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+            <!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+            <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+        </div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                        <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://yoursite.com">
+                        Fengzhen8023</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/"><i class="fa "></i>
+                                Home</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/React/"><i class="fa "></i>
+                                React</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/Webpack/"><i class="fa "></i>
+                                Webpack</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/Python/"><i class="fa "></i>
+                                Python</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/userfulTools/"><i class="fa "></i>
+                                实用工具</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/archives/"><i class="fa "></i>
+                                时间轴</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="webpack入门学习笔记10 —— 在项目中使用图片资源">
+            
+            webpack入门学习笔记10 —— 在项目中使用图片资源
+            
+        </h1>
+        <div class="post-meta">
+    
+    <span class="categories-meta fa-wrap">
+        <i class="iconfont icon-wulumuqishigongandashujuguanlipingtai-ico-"></i>
+        <a class="category-link" href="/categories/Webpack/">Webpack</a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="iconfont icon-biaoqian"></i>
+        <span class="tags-meta">
+            
+            <a class="tag-link" href="/tags/Webpack/">Webpack</a> <a class="tag-link" href="/tags/前端/">前端</a>
+            
+        </span>
+    </span>
+    
+    
+    
+    <span class="fa-wrap">
+        <i class="iconfont icon-date"></i>
+        <span class="date-meta">
+            2019/07/28</span>
+    </span>
+    
+    
+</div>
+        
+        
+    </div>
+    
+    <div class="post-body post-content">
+        <h2 id="1-写在前面"><a href="#1-写在前面" class="headerlink" title="1. 写在前面"></a>1. 写在前面</h2><p>在前端项目中，图片是必不可少的一种资源。在使用图片的时候，我们可以有以下几种方式：</p>
+<ul>
+<li>在 <strong>.html</strong> 文件中，通过 <strong><code>&lt;img src=&quot;&quot; alt=&quot;&quot;&gt;</code></strong> 标签引入图片</li>
+<li>在 <strong>.css</strong> 文件中，通过 <strong><code>background: url()</code></strong> 属性来引入图片</li>
+<li>在 <strong>.js</strong> 文件中，通过 <strong><code>import</code></strong> 或者 <strong><code>require</code></strong> 语法来引入图片</li>
+</ul>
+<p>但是在基于webpack的项目中，如果你只是简单的引入，而没有对这些图片文件做一些配置处理的话，是不能成功的。比如，如果你在一个 <strong>.js</strong> 文件中书写以下代码：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> logo <span class="keyword">from</span> <span class="string">'./logo.png'</span></span><br><span class="line"><span class="built_in">console</span>.log(logo);</span><br></pre></td></tr></table></figure>
+<p>或者在 <strong>.css</strong> 文件中，书写以下代码：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">    <span class="attribute">background-color</span>: gray;</span><br><span class="line">    <span class="attribute">background</span>: <span class="built_in">url</span>(<span class="string">'./logo.png'</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>那么在进行打包编译项目或者启动本地开发服务器的时候，会报出以下错误：</p>
+<p><img src="http://q1d2135zd.bkt.clouddn.com//webpack-10-01.png" alt></p>
+<p>错误提示很明显：我们需要一个合适的loader来处理这些图片文件。</p>
+<p>那么在这篇博客中，我们就来讲述一下：如何进行配置webpack，使得图片资源可以在项目中被正常地使用。主要内容包括：</p>
+<ul>
+<li>使用 file-loader 处理图片资源</li>
+<li>使用 html-withimg-loader 处理图片资源</li>
+</ul>
+<h2 id="2-使用-file-loader-处理图片资源"><a href="#2-使用-file-loader-处理图片资源" class="headerlink" title="2. 使用 file-loader 处理图片资源"></a>2. 使用 file-loader 处理图片资源</h2><p>首先讲述如何使用 <strong>file-loader</strong> 来处理图片资源，既然是一个loader，那么第一步肯定是安装，安装命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add file-loader -D</span><br></pre></td></tr></table></figure>
+<p>安装完成之后，到 <strong>webpack.config.js</strong> 文件中进行配置，配置规则非常简单，这里直接给出代码：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    <span class="comment">/* 节省篇幅，其他配置信息已省略 */</span></span><br><span class="line">    <span class="built_in">module</span>: &#123;</span><br><span class="line">        rules: [</span><br><span class="line">            &#123;</span><br><span class="line">                test: <span class="regexp">/\.(png|jpg|jpeg|gif)$/</span>,  <span class="comment">// 使用正则匹配文件图片</span></span><br><span class="line">                use: &#123;</span><br><span class="line">                    loader: <span class="string">'file-loader'</span>   	<span class="comment">// 使用file-loader对这些文件进行处理</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里将其他的配置规则省略了，如果你想看其他的配置规则，可以查看我的 <strong><a href="https://github.com/Fengzhen8023/webpack-learning" target="_blank" rel="noopener">GitHub仓库 - webpack-learning</a></strong> ,或者通过本文末尾的链接，跳转到我之前的博客中进行查看。</p>
+<p>这里介绍一下 <strong>file-loader</strong> 的作用：对项目中使用到的图片文件进行处理，将处理后的文件保存到 <strong>输出文件夹</strong></p>
+<p>，并返回输出文件夹下该文件的 <strong>URL</strong> 。如此一来，这个文件就可以被正常使用。</p>
+<p>下面我们在项目中体验一下这个loader的作用，在一个 <strong>.js</strong> 文件中书写以下代码，使用图片资源：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> logo <span class="keyword">from</span> <span class="string">'./logo.png'</span>   <span class="comment">// 引入图片</span></span><br><span class="line"><span class="built_in">console</span>.log(logo);  </span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> img = <span class="keyword">new</span> Image();</span><br><span class="line">img.src = logo;</span><br><span class="line"></span><br><span class="line"><span class="built_in">document</span>.getElementsByTagName(<span class="string">'body'</span>)[<span class="number">0</span>].appendChild(img);</span><br></pre></td></tr></table></figure>
+<p>打包编译之后，就可以在页面上看到这样图片了。</p>
+<p>同理，在 <strong>.css</strong> 文件中也可以正常使用图片资源，参考代码如下：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">    <span class="attribute">background-color</span>: gray;</span><br><span class="line">    <span class="attribute">background</span>: <span class="built_in">url</span>(<span class="string">'./logo.png'</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果这时候，你在 <strong>.html</strong> 文件中 <strong><code>&lt;img src=&quot;&quot; alt=&quot;&quot;&gt;</code></strong> 标签引入图片，webpack一样会报错。仅靠file-loader做不到这一点，为了解决这个问题，我们需要 <strong>在file-loader的基础上</strong>，使用下面讲到的loader。</p>
+<h2 id="3-使用-html-withimg-loader-处理图片资源"><a href="#3-使用-html-withimg-loader-处理图片资源" class="headerlink" title="3. 使用 html-withimg-loader 处理图片资源"></a>3. 使用 html-withimg-loader 处理图片资源</h2><p>这个loader的作用是：处理 <strong>.html</strong> 文件中引用的图片，使得图片能够被正常使用。但是要注意，使用这个loader的时候，同时也要使用上面的 <strong>file-loader</strong> 。</p>
+<p>和上面一样，首先我们要做的还是进行安装，安装命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add html-withimg-loader -D</span><br></pre></td></tr></table></figure>
+<p>安装完成之后，到 <strong>webpack.config.js</strong> 文件中进行配置，配置规则非常简单，这里直接给出代码：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line"> 	<span class="comment">/* 节省篇幅，其他配置信息已省略 */</span></span><br><span class="line">    <span class="built_in">module</span>: &#123;</span><br><span class="line">        rules: [</span><br><span class="line">            <span class="comment">// 配置 file-loader</span></span><br><span class="line">            &#123;</span><br><span class="line">                test: <span class="regexp">/\.(png|jpg|jpeg|gif)$/</span>,   </span><br><span class="line">                use: &#123;</span><br><span class="line">                    loader: <span class="string">'file-loader'</span>    </span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="comment">// 配置 html-withimg-loader</span></span><br><span class="line">            &#123;</span><br><span class="line">                test: <span class="regexp">/\.html$/</span>,</span><br><span class="line">                use: <span class="string">'html-withimg-loader'</span></span><br><span class="line">            &#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>配置完成之后，我们就可以在 <strong>.html</strong> 文件中正常使用图片，比如以下代码：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attr">content</span>=<span class="string">"ie=edge"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- 引入logo.png图片 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"./logo.png"</span> <span class="attr">alt</span>=<span class="string">""</span>&gt;</span>		</span><br><span class="line">    </span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>现在进行打包编译项目，得到编译后的 <strong>index.html</strong> 文件代码如下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">en</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">UTF-8</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">viewport</span> <span class="attr">content</span>=<span class="string">"width=device-width,initial-scale=1"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">X-UA-Compatible</span> <span class="attr">content</span>=<span class="string">"ie=edge"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 注意这里的图片引用路径不再是logo.png --&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 这个路径是 file-loader 对文件处理后生成新文件的路径 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">2b9a35ac93ae4d5ea1eb21230d61c324.png</span> <span class="attr">alt</span>=<span class="string">""</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>这个时候在浏览器中打开编译后的 <strong>index.html</strong> 文件，就可以看到我们的图片了。</p>
+<h2 id="4-优化图片处理方式，减少http请求"><a href="#4-优化图片处理方式，减少http请求" class="headerlink" title="4. 优化图片处理方式，减少http请求"></a>4. 优化图片处理方式，减少http请求</h2><p>在编写前端项目的过程中，我们可能会用到很多图片资源，有些图片非常小，只有几KB。但是这些小图片的数量有时却非常大，有的项目中可能有几十个甚至是上百个图片。</p>
+<p>这就会导致一个问题：项目上线之后，为了请求这些图片资源，浏览器端会大量使用http请求来获取图片，这就可能导致浏览器的开销过大，性能较低。那么怎么来解决这个问题呢？</p>
+<p>这里我们介绍一种编码方式——Base64编码。这不是一种加密解密方式，它是一种编码方式。简单来说，它的作用就是：使用字符来表示任意二进制文件（这些字符包括：<strong>A B … Z a b … z 0 1 … 9 + /</strong> 等64个字符）。</p>
+<p>为了更加贴切的体会Base64编码，你可以复制以下长长的Base64编码，粘贴到浏览器地址栏，便可以看到这段Base64编码表示的图片了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data:image/png;base64,iVBORw0KGgoAAAANSUhEU 中间省略很长很长一段编码 AABJRU5ErkJggg==</span><br></pre></td></tr></table></figure>
+<p>使用Base64对图片进行编码，就可以将这些图片切入到静态的 <strong>.html</strong> 文件中，这样就不需要再使用http请求来获取图片了，从而节省浏览器开销，提高性能。</p>
+<p>为了在基于Webpack的项目中使用Base64编码处理图片，我们需要使用 <strong>url-loader</strong> 来进行处理。首先安装该loader，安装命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add url-loader -D</span><br></pre></td></tr></table></figure>
+<p>安装完成之后，我们到 <strong>webpack.config.js</strong> 文件中进行相关配置，配置非常简单，代码如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">   <span class="comment">/* 节省篇幅，其他的配置信息已省略 */</span></span><br><span class="line">    <span class="built_in">module</span>: &#123;</span><br><span class="line">        rules: [</span><br><span class="line">            &#123;</span><br><span class="line">                test: <span class="regexp">/\.(png|jpg|jpeg|gif)$/</span>,</span><br><span class="line">                use: &#123;</span><br><span class="line">                    loader: <span class="string">'url-loader'</span>,</span><br><span class="line">                    options: &#123;</span><br><span class="line">                        limit: <span class="number">200</span>*<span class="number">1024</span>		<span class="comment">// 小于200k的图片，使用Base64进行处理</span></span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里将其他的配置规则省略了，如果你想看其他的配置规则，可以查看我的 <strong><a href="https://github.com/Fengzhen8023/webpack-learning" target="_blank" rel="noopener">GitHub仓库 - webpack-learning</a></strong> ,或者通过本文末尾的链接，跳转到我之前的博客中进行查看。</p>
+<p>上述配置非常好理解：对于png、jpg等图片格式的资源，使用url-loader进行处理，如果图片小于200k，那么就是用Base64进行编码；如果图片大于200k，就不做处理，使用http请求来获取图片。</p>
+<p>配置完成之后，当我们编译项目时，就会在生成的 <strong>.html</strong> 文件中看到使用Base64编码后的图片，由于内容较多，就不贴代码，想查看的编译后代码的同学，可以点击 <strong><a href="https://github.com/Fengzhen8023/webpack-learning/blob/master/history/Base64Image.html" target="_blank" rel="noopener">Github连接</a></strong> 进行查看。</p>
+<h2 id="5-写在最后"><a href="#5-写在最后" class="headerlink" title="5. 写在最后"></a>5. 写在最后</h2><p>这是本篇博客的全部内容，关于 <strong>file-loader</strong> 的更多知识，推荐大家访问 <strong><a href="https://www.webpackjs.com/loaders/file-loader/" target="_blank" rel="noopener">webpack官网 - file-loader</a></strong> 。</p>
+
+    </div>
+    
+    <div class="post-footer">
+        <div>
+            
+            转载声明：
+            商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="https://www.jianshu.com/u/231315b8e406" target="_blank">Fengzhen8023</a>
+            
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+<div class="article-nav prev-next-wrap clearfix">
+    
+    <a href="/2019/08/04/webpack入门学习笔记13 —— 使用Webpack打包多页面应用/" class="pre-post btn btn-default" title='webpack入门学习笔记13 —— 使用Webpack打包多页面应用'>
+        <span class="remove-hidden-lg">上一篇</span>
+        <span class="hidden-xs">
+            webpack入门学习笔记13 —— 使用Webpack打包多页面应用</span>
+    </a>
+    
+    
+    <a href="/2019/07/28/webpack入门学习笔记11 —— 在项目中对打包编译的文件进行分类/" class="next-post btn btn-default" title='webpack入门学习笔记11 —— 在项目中对打包编译的文件进行分类'>
+        <span class="remove-hidden-lg">下一篇</span>
+        <span class="hidden-xs">
+            webpack入门学习笔记11 —— 在项目中对打包编译的文件进行分类</span></i>
+    </a>
+    
+</div>
+
+<div id="comments">
+    
+
+<div id="vcomments" class="valine"></div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+<script>
+new Valine({
+    av: AV,
+    el: '#vcomments',
+    appId: 'xOKV9J4UeQAtVkvnJC7Kq2Jn-gzGzoHsz',
+    appKey: 'erIpQac4azoCmgfBB7Dl9maa',
+    placeholder: '说点什么吧',
+    notify: false,
+    verify: true,
+    avatar: 'mm',
+    meta: 'nick,mail'.split(','),
+    pageSize: '10',
+    path: window.location.pathname,
+    lang: 'en'.toLowerCase()
+})
+</script>
+
+
+</div>
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">
+            Table of Contents
+        </h3>
+        
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-写在前面"><span class="toc-text">1. 写在前面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-使用-file-loader-处理图片资源"><span class="toc-text">2. 使用 file-loader 处理图片资源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-使用-html-withimg-loader-处理图片资源"><span class="toc-text">3. 使用 html-withimg-loader 处理图片资源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-优化图片处理方式，减少http请求"><span class="toc-text">4. 优化图片处理方式，减少http请求</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-写在最后"><span class="toc-text">5. 写在最后</span></a></li></ol>
+        
+    </div>
+</aside>
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+<a id="back-to-top" class="icon-btn hide">
+    <i class="iconfont icon-top"></i>
+</a>
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy;
+                    2017
+                    
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+</body>
+</html>

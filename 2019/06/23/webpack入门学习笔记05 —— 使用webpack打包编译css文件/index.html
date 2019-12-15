@@ -1,0 +1,373 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="Fengzhen8023">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.2.3">
+    <meta name="root" content="/">
+    <link rel="dns-prefetch" href="http://yoursite.com">
+    <!--SEO-->
+
+<meta name="keywords" content="Webpack,前端">
+
+
+<meta name="description" content="1. 写在前面在前面的博客中，对webpack打包项目进行了简单介绍，而且都是关于打包编译 .js 文件的介绍。我们知道在一个基于webpack的项目中，肯定不止是 .js 文件，还有 .htm...">
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+    <!--Title-->
+
+<title>
+    
+    webpack入门学习笔记05 —— 使用webpack打包编译css文件 |
+    
+    Fengzhen8023
+</title>
+
+<link rel="alternate" href="/atom.xml" title="Fengzhen8023" type="application/atom+xml">
+
+
+<link rel="icon" href="/favicon.ico">
+
+    
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.7.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+<link rel="stylesheet" href="/fonts/iconfont.css">
+    
+<div class="hide">
+    <script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+</div>
+
+
+
+
+    
+
+</head></html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+<body>
+    <header class="main-header"  >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='John Doe'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+            <!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+            <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+        </div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                        <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://yoursite.com">
+                        Fengzhen8023</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/"><i class="fa "></i>
+                                Home</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/React/"><i class="fa "></i>
+                                React</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/Webpack/"><i class="fa "></i>
+                                Webpack</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/Python/"><i class="fa "></i>
+                                Python</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/userfulTools/"><i class="fa "></i>
+                                实用工具</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/archives/"><i class="fa "></i>
+                                时间轴</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="webpack入门学习笔记05 —— 使用webpack打包编译css文件">
+            
+            webpack入门学习笔记05 —— 使用webpack打包编译css文件
+            
+        </h1>
+        <div class="post-meta">
+    
+    <span class="categories-meta fa-wrap">
+        <i class="iconfont icon-wulumuqishigongandashujuguanlipingtai-ico-"></i>
+        <a class="category-link" href="/categories/Webpack/">Webpack</a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="iconfont icon-biaoqian"></i>
+        <span class="tags-meta">
+            
+            <a class="tag-link" href="/tags/Webpack/">Webpack</a> <a class="tag-link" href="/tags/前端/">前端</a>
+            
+        </span>
+    </span>
+    
+    
+    
+    <span class="fa-wrap">
+        <i class="iconfont icon-date"></i>
+        <span class="date-meta">
+            2019/06/23</span>
+    </span>
+    
+    
+</div>
+        
+        
+    </div>
+    
+    <div class="post-body post-content">
+        <h2 id="1-写在前面"><a href="#1-写在前面" class="headerlink" title="1. 写在前面"></a>1. 写在前面</h2><p>在前面的博客中，对webpack打包项目进行了简单介绍，而且都是关于打包编译 <strong>.js</strong> 文件的介绍。我们知道在一个基于webpack的项目中，肯定不止是 <strong>.js</strong> 文件，还有 <strong>.html</strong> 、<strong>.css</strong>、<strong>.png</strong> 等文件，在后面的博客中会给大家一一讲述，在这篇博客中，我们就介绍如何使用webpack打包编译 <strong>.css</strong> 文件。</p>
+<p>主要内容包括：</p>
+<ul>
+<li><p>如何在项目中引入 <strong>.css</strong> 文件</p>
+</li>
+<li><p>打包编译 <strong>.css</strong> 文件</p>
+</li>
+<li>打包编译 <strong>.less</strong> 文件</li>
+<li>将css代码抽离为单个文件</li>
+<li>给打包编译后的css3属性添加相关前缀</li>
+<li>压缩编译后的 <strong>.css</strong> 文件</li>
+</ul>
+<h2 id="2-如何在项目中引入-css-文件"><a href="#2-如何在项目中引入-css-文件" class="headerlink" title="2. 如何在项目中引入 .css 文件"></a>2. 如何在项目中引入 <strong>.css</strong> 文件</h2><p>之前我们提到过，webpack会对项目中的项目文件进行打包编译，然后将生成的文件挂载到一个 <strong>.html</strong> 模板文件中。这个时候如果要引入css样式，你可能会想：我将css样式直接写到 <strong>.html</strong> 模板文件中，或者将 <strong>.css</strong> 文件挂载到模板文件中，不就行了吗。例如下面的代码：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attr">content</span>=<span class="string">"ie=edge"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line">        body &#123;</span><br><span class="line">            background-color: red;</span><br><span class="line">            color: yellow;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>这是一个模板文件<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">    </span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>首先从功能上分析，这种方式是可行的，无论你是使用 <strong><code>yarn dev</code></strong> 来启动开发服务器，还是使用 <strong><code>yarn build</code></strong> 来打包编译项目，最终你写的样式都是会存在，会起作用的。但是这种方法非常不好，也不规范，所以非常不推荐使用这种方式。那么该怎么来引入css代码呢？</p>
+<p>如果你是使用 <strong>Vue脚手架</strong> 或者 <strong>React脚手架</strong> 来构造项目的话，那么直接参考他们的官方教程来写css样式即可，如果你是从零手动搭建的项目，那么可以在 <strong>.js</strong> 文件中引入 <strong>.css</strong> 文件，例如下面的实例：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// index.js 文件</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'我是 index.js 文件'</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">require</span>(<span class="string">'./index.css'</span>)  <span class="comment">// 引入 .css 样式文件</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">require</span>(<span class="string">'./b.less'</span>)     <span class="comment">// 引入 .less 样式文件</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* index.css 文件 */</span></span><br><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">    <span class="attribute">background-color</span>: red;</span><br><span class="line">    <span class="attribute">color</span>: yellow;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* b.less 文件 */</span></span><br><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">5px</span> solid <span class="number">#45454</span>;</span><br><span class="line">    <span class="selector-tag">div</span> &#123;</span><br><span class="line">        <span class="attribute">font-size</span>: <span class="number">20px</span>;</span><br><span class="line">        <span class="attribute">font-weight</span>: bolder;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>现在我们已经将 <strong>.css</strong> 文件和 <strong>.less</strong> 文件引入到项目中，但是这个时候，如果我们启动本地开发服务器或者打包编译项目，肯定会报错。</p>
+<p><img src="http://q1d2135zd.bkt.clouddn.com//webpack-05-01.png" alt></p>
+<p>这是因为我们还没有进行相关的配置，webpack还不知道如何处理这些引入的文件。所及接下来要说的就是如何进行配置，使得webpack可以进行打包编译样式文件。</p>
+<h2 id="3-打包编译-css-文件"><a href="#3-打包编译-css-文件" class="headerlink" title="3. 打包编译 .css 文件"></a>3. 打包编译 <strong>.css</strong> 文件</h2><p>webpack之所以能够打包编译项目中各式各样的文件，是因为它借助了很多功能强大的插件或者模块。所以如果我们想打包编译 <strong>.css</strong> 文件，首先安装两个loader模块： <strong>css-loader</strong> 和 <strong>style-loader</strong> 。安装命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add css-loader style-loader -D</span><br></pre></td></tr></table></figure>
+<p>安装完成之后，我们要在 <strong>webpack.config.js</strong> 文件中进行配置，这里我们先给出标准的配置代码，然后再详细讲解（重点关注有注释的部分）：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> path = <span class="built_in">require</span>(<span class="string">"path"</span>);</span><br><span class="line"><span class="keyword">let</span> HtmlWebpackPlugin = <span class="built_in">require</span>(<span class="string">"html-webpack-plugin"</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    mode: <span class="string">"development"</span>,    </span><br><span class="line">    entry: <span class="string">"./src/index.js"</span>,   </span><br><span class="line">    output: &#123;       </span><br><span class="line">        filename: <span class="string">"index.js"</span>,   <span class="comment">//</span></span><br><span class="line">        path: path.resolve(__dirname, <span class="string">"build"</span>)   </span><br><span class="line">    &#125;,</span><br><span class="line">    plugins: [</span><br><span class="line">        <span class="keyword">new</span> HtmlWebpackPlugin(&#123;</span><br><span class="line">            template: <span class="string">'./src/index.html'</span>,</span><br><span class="line">            filename: <span class="string">'index.html'</span>,</span><br><span class="line">            minify: &#123;</span><br><span class="line">                removeAttributeQuotes: <span class="literal">true</span>,</span><br><span class="line">                collapseWhitespace: <span class="literal">true</span></span><br><span class="line">            &#125;,</span><br><span class="line">            hash: <span class="literal">true</span></span><br><span class="line">        &#125;),</span><br><span class="line">    ],</span><br><span class="line">    <span class="built_in">module</span>: &#123;       <span class="comment">// 配置 webpack 使用到的模块</span></span><br><span class="line">        rules: [</span><br><span class="line">            &#123;</span><br><span class="line">                test: <span class="regexp">/\.css$/</span>,     <span class="comment">// 针对 .css 结尾的文件，使用下面的loader进行处理</span></span><br><span class="line">                use: [</span><br><span class="line">                    <span class="string">'style-loader'</span>,</span><br><span class="line">                    <span class="string">'css-loader'</span></span><br><span class="line">                ]</span><br><span class="line">            &#125;</span><br><span class="line">        ],</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在上面代码中，我们增添了 <strong>module</strong> 属性，该属性是一个对象，它里面又有一个 <strong>rules</strong> 属性，该属性是一个数组。在这个数组中，我们可以配置很多规则，分别指定对各种文件处理的程序（比如使用哪种loader进行处理等）。这里我们首先配置对 <strong>.css</strong> 的处理规则。</p>
+<p>在 <strong>rules</strong> 数组中配置规则很简单，直接添加一个对象即可。如上面代码所示，我们要配置处理 <strong>.css</strong> 文件的规则，可以添加以下对象：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    test: <span class="regexp">/\.css$/</span>,     <span class="comment">// 针对 .css 结尾的文件，使用下面的loader进行处理</span></span><br><span class="line">    use: [</span><br><span class="line">        <span class="string">'style-loader'</span>,</span><br><span class="line">        <span class="string">'css-loader'</span></span><br><span class="line">        ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>该对象有两个属性：<strong>test</strong> 和 <strong>use</strong></p>
+<ul>
+<li><p><strong>test</strong> 属性是用来匹配文件的，一般我们使用正则表达式来匹配文件，上面代码中 <strong><code>/\.css$/</code></strong> 就是匹配以 <strong>.css</strong> 结尾的文件。</p>
+</li>
+<li><p><strong>use</strong> 属性指定使用哪些程序，来对匹配到的文件进行处理。该属性是一个数组，这是因为对一个文件进行处理的时候，可能会用到多种程序。比如上面的代码中，我们制定使用 <strong>style-loader</strong> 和 <strong>css-loader</strong> 两种程序来处理 <strong>.css</strong> 文件，就需要将这两个程序写到数组中。</p>
+<p>需要注意的是，这个数组中程序的顺序不能随便写，因为对文件进行处理的时候，webpack会按照从后向前的顺序，依次使用指定的程序来处理文件。</p>
+<p>比如在处理index.css文件的时候，要先使用 <strong>css-loader</strong> 处理css语法，然后在使用 <strong>style-loader</strong> 将处理后的css挂载到 <strong>index.html</strong> 模板文件中。在写 <strong>use</strong> 属性的时候，就要将 <strong>style-loader</strong> 写在前面，将  <strong>css-loader</strong> 写在后面。</p>
+<p>最后还想说的一点是，该属性中不仅可以写字符串，还可以写对象，用来更深次地配置处理文件的loader程序。比如：如果你想将处理好的 <strong>css</strong> 挂载到模板文件的顶部，可以这样配置：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    test: <span class="regexp">/\.css$/</span>,</span><br><span class="line">    use: [</span><br><span class="line">        &#123;</span><br><span class="line">            loader: <span class="string">'style-loader'</span>,</span><br><span class="line">            options: &#123;</span><br><span class="line">                insertAt: <span class="string">'top'</span>	<span class="comment">// 将编译后的css挂载到模板文件的顶部</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">'css-loader'</span></span><br><span class="line">    ]</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<p>如果在指定属性的时候不知道如何书写，可以这些loader程序的官方文档，比如 <strong><a href="https://www.webpackjs.com/loaders/style-loader/" target="_blank" rel="noopener">style-loaderde 官方文档</a> 。</strong></p>
+</li>
+</ul>
+<p>配置完这些规则之后，使用 <strong><code>yarn dev</code></strong> 启动本地开发服务器或者使用 <strong><code>yarn build</code></strong> 对项目进行打包编译，webpack就可以顺利地使用我们配置的规则处理 <strong>.css</strong> 文件了。</p>
+<h2 id="4-打包编译-less-文件"><a href="#4-打包编译-less-文件" class="headerlink" title="4. 打包编译 .less 文件"></a>4. 打包编译 <strong>.less</strong> 文件</h2><p> 如果项目中使用到了 <strong>less语法（一门 CSS 预处理语言 ）</strong> ，我们就要进行相关配置 <strong>.less</strong> 文件的处理规则。和处理 <strong>.css</strong> 文件类似，应该安装两个模块：<strong>less</strong> 和 <strong>less-loader</strong>。安装命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add less less-loader -D</span><br></pre></td></tr></table></figure>
+<p>配置的方法和上面讲到的方法如出一辙，所以这里直接给出配置的代码（重点关注有注释的部分）：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> path = <span class="built_in">require</span>(<span class="string">"path"</span>);</span><br><span class="line"><span class="keyword">let</span> HtmlWebpackPlugin = <span class="built_in">require</span>(<span class="string">"html-webpack-plugin"</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    mode: <span class="string">"development"</span>,   </span><br><span class="line">    entry: <span class="string">"./src/index.js"</span>,    </span><br><span class="line">    output: &#123;        </span><br><span class="line">        filename: <span class="string">"index.js"</span>,    </span><br><span class="line">        path: path.resolve(__dirname, <span class="string">"build"</span>)    </span><br><span class="line">    &#125;,</span><br><span class="line">    plugins: [</span><br><span class="line">        <span class="keyword">new</span> HtmlWebpackPlugin(&#123;</span><br><span class="line">            template: <span class="string">'./src/index.html'</span>,</span><br><span class="line">            filename: <span class="string">'index.html'</span>,</span><br><span class="line">            minify: &#123;</span><br><span class="line">                removeAttributeQuotes: <span class="literal">true</span>,</span><br><span class="line">                collapseWhitespace: <span class="literal">true</span></span><br><span class="line">            &#125;,</span><br><span class="line">            hash: <span class="literal">true</span></span><br><span class="line">        &#125;),</span><br><span class="line">    ],</span><br><span class="line">    <span class="built_in">module</span>: &#123;       <span class="comment">// 配置 webpack 使用到的模块</span></span><br><span class="line">        rules: [</span><br><span class="line">            &#123;</span><br><span class="line">                test: <span class="regexp">/\.css$/</span>,     <span class="comment">// 针对 .css 结尾的文件，使用下面的loader进行处理</span></span><br><span class="line">                use: [</span><br><span class="line">                    <span class="string">'style-loader'</span>,</span><br><span class="line">                    <span class="string">'css-loader'</span></span><br><span class="line">                ]</span><br><span class="line">            &#125;,</span><br><span class="line">            &#123;</span><br><span class="line">                test: <span class="regexp">/\.less/</span>,</span><br><span class="line">                use: [</span><br><span class="line">                    <span class="string">'style-loader'</span>,</span><br><span class="line">                    <span class="string">'css-loader'</span>,</span><br><span class="line">                    <span class="string">'less-loader'</span>       <span class="comment">// less-loader将less语法转成常规的css语法</span></span><br><span class="line">                ]</span><br><span class="line">            &#125;</span><br><span class="line">        ],</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>配置完成之后，重启开发服务器或者重新打包编译，<strong>.less</strong> 文件就可以顺利地被编译。</p>
+<h2 id="5-将css代码抽离为单个文件"><a href="#5-将css代码抽离为单个文件" class="headerlink" title="5. 将css代码抽离为单个文件"></a>5. 将css代码抽离为单个文件</h2><p>如前面所提到的那样，webpack会打包编译 <strong>.css</strong> 文件或者 <strong>.less</strong> 文件，将处理后的css代码挂载到模板文件中，但是有的时候我们不希望这样。我们希望将处理后的css代码输出到一个指定的文件中，然后在模板文件中 <strong>自动引入</strong> 该文件。如果要达到这个目的，可以进行如下配置：</p>
+<p>首先安装一个插件 <strong>mini-css-extract-plugin</strong>， 安装命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add mini-css-extract-plugin -D</span><br></pre></td></tr></table></figure>
+<p>安装完成之后，直接进行如下配置即可（重点关注有注释的部分）：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> path = <span class="built_in">require</span>(<span class="string">"path"</span>);</span><br><span class="line"><span class="keyword">let</span> HtmlWebpackPlugin = <span class="built_in">require</span>(<span class="string">"html-webpack-plugin"</span>)</span><br><span class="line"><span class="keyword">let</span> MiniCssExtract = <span class="built_in">require</span>(<span class="string">'mini-css-extract-plugin'</span>) <span class="comment">// 引入插件</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    mode: <span class="string">"production"</span>,</span><br><span class="line">    entry: <span class="string">"./src/index.js"</span>,</span><br><span class="line">    output: &#123;</span><br><span class="line">        filename: <span class="string">"index.js"</span>,</span><br><span class="line">        path: path.resolve(__dirname, <span class="string">"build"</span>)</span><br><span class="line">    &#125;,</span><br><span class="line">    plugins: [		<span class="comment">// 配置插件</span></span><br><span class="line">        <span class="keyword">new</span> HtmlWebpackPlugin(&#123;</span><br><span class="line">            template: <span class="string">'./src/index.html'</span>,</span><br><span class="line">            filename: <span class="string">'index.html'</span>,</span><br><span class="line">            minify: &#123;</span><br><span class="line">                removeAttributeQuotes: <span class="literal">true</span>,</span><br><span class="line">                collapseWhitespace: <span class="literal">true</span></span><br><span class="line">            &#125;,</span><br><span class="line">            hash: <span class="literal">true</span></span><br><span class="line">        &#125;),</span><br><span class="line">        <span class="keyword">new</span> MiniCssExtract(&#123; 		<span class="comment">// 创建该插件的实例</span></span><br><span class="line">            filename: <span class="string">'main.css'</span> 	<span class="comment">// 指定输出的css文件的文件名</span></span><br><span class="line">        &#125;)</span><br><span class="line">    ],</span><br><span class="line">    <span class="built_in">module</span>: &#123;</span><br><span class="line">        rules: [&#123;</span><br><span class="line">                test: <span class="regexp">/\.css$/</span>,</span><br><span class="line">                use: [</span><br><span class="line">                    MiniCssExtract.loader, <span class="comment">// 配置规则，将处理后的css代码直接输出到指定文件中</span></span><br><span class="line">                    <span class="string">'css-loader'</span>,</span><br><span class="line">                    <span class="string">'postcss-loader'</span></span><br><span class="line">                ]</span><br><span class="line">            &#125;,</span><br><span class="line">            &#123;</span><br><span class="line">                test: <span class="regexp">/\.less$/</span>,</span><br><span class="line">                use: [</span><br><span class="line">                    MiniCssExtract.loader, <span class="comment">// 配置规则，将处理后的css代码直接输出到指定文件中</span></span><br><span class="line">                    <span class="string">'css-loader'</span>,</span><br><span class="line">                    <span class="string">'less-loader'</span>,</span><br><span class="line">                    <span class="string">'postcss-loader'</span></span><br><span class="line">                ]</span><br><span class="line">            &#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>配置完成之后，直接 <strong><code>yarn build</code></strong> 进行打包编译项目，就会得到一个 <strong>main.css</strong> 文件，该文件中就是编译后的css代码，实例如下。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* main.css 文件 */</span></span><br><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: yellow;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">    <span class="attribute">background-color</span>: gray;</span><br><span class="line">    <span class="attribute">transform</span>: <span class="built_in">rotate</span>(<span class="number">45deg</span>)	<span class="comment">/* 注意这一行css3代码，没有添加前缀，后面会提到 */</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">5px</span> solid <span class="number">#4545</span> <span class="number">4</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">body</span> <span class="selector-tag">div</span> &#123;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">20px</span>;</span><br><span class="line">  <span class="attribute">font-weight</span>: bolder;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>关于这一块的更多配置，可以参考 <strong><a href="https://www.npmjs.com/package/mini-css-extract-plugin" target="_blank" rel="noopener">mini-css-extract-plugin 官方文档</a></strong> </p>
+<h2 id="6-给打包编译后的css属性添加相关前缀"><a href="#6-给打包编译后的css属性添加相关前缀" class="headerlink" title="6. 给打包编译后的css属性添加相关前缀"></a>6. 给打包编译后的css属性添加相关前缀</h2><p>如上面展示的 <strong>main.css</strong> 代码所示，打包编译后的代码中，对一些 <strong>CSS3</strong> 属性没有添加相应的前缀，这在一些情况下可能不能满足项目的需求。如果我们想要达到自动给编译后的 <strong>CSS3</strong> 属性添加前缀，可以进行如下配置：</p>
+<p>首先安装两个loader程序： <strong>postcss-loader</strong> 和 <strong>autoprefixer</strong> 。安装命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add postcss-loader autoprefixer -D</span><br></pre></td></tr></table></figure>
+<p>安装完成时候，首先配置 <strong>webpack.config.js</strong> 文件，实例如下（重点关注有注释的部分）：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> path = <span class="built_in">require</span>(<span class="string">"path"</span>);</span><br><span class="line"><span class="keyword">let</span> HtmlWebpackPlugin = <span class="built_in">require</span>(<span class="string">"html-webpack-plugin"</span>)</span><br><span class="line"><span class="keyword">let</span> MiniCssExtract = <span class="built_in">require</span>(<span class="string">'mini-css-extract-plugin'</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    mode: <span class="string">"production"</span>,  </span><br><span class="line">    entry: <span class="string">"./src/index.js"</span>, </span><br><span class="line">    output: &#123;  </span><br><span class="line">        filename: <span class="string">"index.js"</span>,  </span><br><span class="line">        path: path.resolve(__dirname, <span class="string">"build"</span>)  </span><br><span class="line">    &#125;,</span><br><span class="line">    plugins: [</span><br><span class="line">        <span class="keyword">new</span> HtmlWebpackPlugin(&#123;</span><br><span class="line">            template: <span class="string">'./src/index.html'</span>,</span><br><span class="line">            filename: <span class="string">'index.html'</span>,</span><br><span class="line">            minify: &#123;</span><br><span class="line">                removeAttributeQuotes: <span class="literal">true</span>,</span><br><span class="line">                collapseWhitespace: <span class="literal">true</span></span><br><span class="line">            &#125;,</span><br><span class="line">            hash: <span class="literal">true</span></span><br><span class="line">        &#125;),</span><br><span class="line">        <span class="keyword">new</span> MiniCssExtract(&#123;</span><br><span class="line">            filename: <span class="string">'main.css'</span></span><br><span class="line">        &#125;)</span><br><span class="line">    ],</span><br><span class="line">    <span class="built_in">module</span>: &#123;</span><br><span class="line">        rules: [&#123;</span><br><span class="line">                test: <span class="regexp">/\.css$/</span>,</span><br><span class="line">                use: [</span><br><span class="line">                    MiniCssExtract.loader,</span><br><span class="line">                    <span class="string">'css-loader'</span>,</span><br><span class="line">                    <span class="string">'postcss-loader'</span>        <span class="comment">// 给CSS3属性添加前缀</span></span><br><span class="line">                ]</span><br><span class="line">            &#125;,</span><br><span class="line">            &#123;</span><br><span class="line">                test: <span class="regexp">/\.less$/</span>,</span><br><span class="line">                use: [</span><br><span class="line">                    MiniCssExtract.loader,</span><br><span class="line">                    <span class="string">'css-loader'</span>,</span><br><span class="line">                    <span class="string">'less-loader'</span>,</span><br><span class="line">                    <span class="string">'postcss-loader'</span>    	<span class="comment">// 给CSS3属性添加前缀</span></span><br><span class="line">                ]</span><br><span class="line">            &#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在上面代码中，我们指定了使用 <strong>postcss-loader</strong> 来处理 <strong>.css</strong> 和 <strong>.less</strong> 文件，但是现在webpack还不能自动给CSS3属性添加前缀，我们还需要进行配置postcss-loader。在项目根目录下创建 <strong>postcss.config.js</strong> 文件，在里面书写以下配置代码即可：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    plugins: [</span><br><span class="line">        <span class="built_in">require</span>(<span class="string">'autoprefixer'</span>)</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个时候打包编译，webpack就可以自动给CSS3属性添加前缀了，实例如下：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* main.css 文件 */</span></span><br><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: yellow;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">    <span class="attribute">background-color</span>: gray;</span><br><span class="line">    <span class="attribute">-webkit-transform</span>: <span class="built_in">rotate</span>(<span class="number">45deg</span>);</span><br><span class="line">            <span class="attribute">transform</span>: <span class="built_in">rotate</span>(<span class="number">45deg</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">5px</span> solid <span class="number">#4545</span> <span class="number">4</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">body</span> <span class="selector-tag">div</span> &#123;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">20px</span>;</span><br><span class="line">  <span class="attribute">font-weight</span>: bolder;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="7-压缩编译后的-css-文件"><a href="#7-压缩编译后的-css-文件" class="headerlink" title="7. 压缩编译后的 .css 文件"></a>7. 压缩编译后的 <strong>.css</strong> 文件</h2><p>在上一节中，我们可以看到，抽离出来的 <strong>main.css</strong> 文件没有进行压缩，但是很多项目在打包的时候，都需要对 <strong>.css</strong> 文件进行压缩以节省体积。要达到这个目的，可以进行如下配置：</p>
+<p>首先安装一个插件：<strong>optimize-css-assets-webpack-plugin</strong> 。安装命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add optimize-css-assets-webpack-plugin -D</span><br></pre></td></tr></table></figure>
+<p>安装完成之后，直接在 <strong>webpack.config.js</strong> 进行如下配置即可（重点关注有注释的部分）：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> path = <span class="built_in">require</span>(<span class="string">"path"</span>);</span><br><span class="line"><span class="keyword">let</span> HtmlWebpackPlugin = <span class="built_in">require</span>(<span class="string">"html-webpack-plugin"</span>)</span><br><span class="line"><span class="keyword">let</span> MiniCssExtract = <span class="built_in">require</span>(<span class="string">'mini-css-extract-plugin'</span>)</span><br><span class="line"><span class="keyword">let</span> OptimizeCSSAssetsPlugin = <span class="built_in">require</span>(<span class="string">'optimize-css-assets-webpack-plugin'</span>);    <span class="comment">// 引入插件</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    optimization: &#123;     					<span class="comment">// 配置webpack的优化项</span></span><br><span class="line">        minimizer: [    					<span class="comment">// 配置最小值优化项</span></span><br><span class="line">            <span class="keyword">new</span> OptimizeCSSAssetsPlugin()   <span class="comment">// 声明css优化插件的实例</span></span><br><span class="line">        ]</span><br><span class="line">    &#125;,</span><br><span class="line">    mode: <span class="string">"production"</span>,  </span><br><span class="line">    entry: <span class="string">"./src/index.js"</span>, </span><br><span class="line">    output: &#123;  </span><br><span class="line">        filename: <span class="string">"index.js"</span>,  </span><br><span class="line">        path: path.resolve(__dirname, <span class="string">"build"</span>)  </span><br><span class="line">    &#125;,</span><br><span class="line">    plugins: [</span><br><span class="line">        <span class="keyword">new</span> HtmlWebpackPlugin(&#123;</span><br><span class="line">            template: <span class="string">'./src/index.html'</span>,</span><br><span class="line">            filename: <span class="string">'index.html'</span>,</span><br><span class="line">            minify: &#123;</span><br><span class="line">                removeAttributeQuotes: <span class="literal">true</span>,</span><br><span class="line">                collapseWhitespace: <span class="literal">true</span></span><br><span class="line">            &#125;,</span><br><span class="line">            hash: <span class="literal">true</span></span><br><span class="line">        &#125;),</span><br><span class="line">        <span class="keyword">new</span> MiniCssExtract(&#123;</span><br><span class="line">            filename: <span class="string">'main.css'</span></span><br><span class="line">        &#125;)</span><br><span class="line">    ],</span><br><span class="line">    <span class="built_in">module</span>: &#123;</span><br><span class="line">        rules: [&#123;</span><br><span class="line">                test: <span class="regexp">/\.css$/</span>,</span><br><span class="line">                use: [</span><br><span class="line">                    MiniCssExtract.loader,</span><br><span class="line">                    <span class="string">'css-loader'</span>,</span><br><span class="line">                    <span class="string">'postcss-loader'</span>       </span><br><span class="line">                ]</span><br><span class="line">            &#125;,</span><br><span class="line">            &#123;</span><br><span class="line">                test: <span class="regexp">/\.less$/</span>,</span><br><span class="line">                use: [</span><br><span class="line">                    MiniCssExtract.loader,</span><br><span class="line">                    <span class="string">'css-loader'</span>,</span><br><span class="line">                    <span class="string">'less-loader'</span>,</span><br><span class="line">                    <span class="string">'postcss-loader'</span>    </span><br><span class="line">                ]</span><br><span class="line">            &#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>配置完成之后，再次进行打包编译项目，就会得到被压缩的 <strong>main.css</strong> 文件。</p>
+<p>要提醒的是，在上述配置中，虽然我们指定webpack的模式为 <strong>生产模式（production）</strong>,该模式下，打包后的 <strong>.js</strong> 文件本应该被压缩，但是实际的情况却不是这样，得到的 <strong>.js</strong> 文件没有被压缩。</p>
+<p>这是因为我们在配置 <strong>webpack优化项（optimization）</strong> 的时候，一些优化配置会覆盖webpack的默认配置。我们这里没有指定压缩 <strong>.js</strong> 文件，所以即使是在生产模式下进行打包编译，最后得到的 <strong>.js</strong> 文件依然是没有被压缩的。</p>
+<p>如果要对 <strong>.js</strong> 文件进行压缩，也是非常简单，和配置 <strong>.css</strong> 文件压缩的如出一辙。具体配置如下：</p>
+<p>首先安装一个插件：<strong>terser-webpack-plugin</strong> ，安装命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add terser-webpack-plugin -D</span><br></pre></td></tr></table></figure>
+<p>然后进行和上面类似的配置（重点关注有注释的部分）：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> path = <span class="built_in">require</span>(<span class="string">"path"</span>);</span><br><span class="line"><span class="keyword">let</span> HtmlWebpackPlugin = <span class="built_in">require</span>(<span class="string">"html-webpack-plugin"</span>)</span><br><span class="line"><span class="keyword">let</span> MiniCssExtract = <span class="built_in">require</span>(<span class="string">'mini-css-extract-plugin'</span>)</span><br><span class="line"><span class="keyword">let</span> OptimizeCSSAssetsPlugin = <span class="built_in">require</span>(<span class="string">'optimize-css-assets-webpack-plugin'</span>);   </span><br><span class="line"><span class="keyword">let</span> TerserJSPlugin = <span class="built_in">require</span>(<span class="string">'terser-webpack-plugin'</span>);      <span class="comment">// 引入插件</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    optimization: &#123;                         <span class="comment">// 配置webpack的优化项</span></span><br><span class="line">    minimizer: [                            <span class="comment">// 配置最小值优化项</span></span><br><span class="line">            <span class="keyword">new</span> OptimizeCSSAssetsPlugin(),</span><br><span class="line">            <span class="keyword">new</span> TerserJSPlugin()            <span class="comment">// 声明js压缩插件的实例</span></span><br><span class="line">        ]</span><br><span class="line">    &#125;,</span><br><span class="line">    mode: <span class="string">"production"</span>,  </span><br><span class="line">    entry: <span class="string">"./src/index.js"</span>, </span><br><span class="line">    output: &#123;  </span><br><span class="line">        filename: <span class="string">"index.js"</span>,  </span><br><span class="line">        path: path.resolve(__dirname, <span class="string">"build"</span>)  </span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 节省篇幅，后面的一些配置我就不写了，和上面的一样</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>现在再次进行打包，得到的 <strong>.js</strong> 文件就是被压缩的。</p>
+<h2 id="8-写在最后"><a href="#8-写在最后" class="headerlink" title="8. 写在最后"></a>8. 写在最后</h2><p>这篇博客的内容可能会多一点，主要讲解如何在webpack中配置对 <strong>.css</strong> 文件进行处理的规则。希望会对大家有所帮助。</p>
+
+    </div>
+    
+    <div class="post-footer">
+        <div>
+            
+            转载声明：
+            商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="https://www.jianshu.com/u/231315b8e406" target="_blank">Fengzhen8023</a>
+            
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+<div class="article-nav prev-next-wrap clearfix">
+    
+    <a href="/2019/06/30/webpack入门学习笔记06 —— 使用babel打包编译js文件/" class="pre-post btn btn-default" title='webpack入门学习笔记01 —— webpack基本简介'>
+        <span class="remove-hidden-lg">上一篇</span>
+        <span class="hidden-xs">
+            webpack入门学习笔记01 —— webpack基本简介</span>
+    </a>
+    
+    
+    <a href="/2019/06/21/webpack入门学习笔记04 —— 安装和配置webpack开发服务器/" class="next-post btn btn-default" title='webpack入门学习笔记04 —— 安装和配置webpack开发服务器'>
+        <span class="remove-hidden-lg">下一篇</span>
+        <span class="hidden-xs">
+            webpack入门学习笔记04 —— 安装和配置webpack开发服务器</span></i>
+    </a>
+    
+</div>
+
+<div id="comments">
+    
+
+<div id="vcomments" class="valine"></div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+<script>
+new Valine({
+    av: AV,
+    el: '#vcomments',
+    appId: 'xOKV9J4UeQAtVkvnJC7Kq2Jn-gzGzoHsz',
+    appKey: 'erIpQac4azoCmgfBB7Dl9maa',
+    placeholder: '说点什么吧',
+    notify: false,
+    verify: true,
+    avatar: 'mm',
+    meta: 'nick,mail'.split(','),
+    pageSize: '10',
+    path: window.location.pathname,
+    lang: 'en'.toLowerCase()
+})
+</script>
+
+
+</div>
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">
+            Table of Contents
+        </h3>
+        
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-写在前面"><span class="toc-text">1. 写在前面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-如何在项目中引入-css-文件"><span class="toc-text">2. 如何在项目中引入 .css 文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-打包编译-css-文件"><span class="toc-text">3. 打包编译 .css 文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-打包编译-less-文件"><span class="toc-text">4. 打包编译 .less 文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-将css代码抽离为单个文件"><span class="toc-text">5. 将css代码抽离为单个文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-给打包编译后的css属性添加相关前缀"><span class="toc-text">6. 给打包编译后的css属性添加相关前缀</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-压缩编译后的-css-文件"><span class="toc-text">7. 压缩编译后的 .css 文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-写在最后"><span class="toc-text">8. 写在最后</span></a></li></ol>
+        
+    </div>
+</aside>
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+<a id="back-to-top" class="icon-btn hide">
+    <i class="iconfont icon-top"></i>
+</a>
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy;
+                    2017
+                    
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+</body>
+</html>

@@ -1,0 +1,328 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="Fengzhen8023">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.2.3">
+    <meta name="root" content="/">
+    <link rel="dns-prefetch" href="http://yoursite.com">
+    <!--SEO-->
+
+<meta name="keywords" content="Webpack,前端">
+
+
+<meta name="description" content="1. 写在前面在做项目的时候，我们可能会经常遇到这种场景：一个变量我在很多文件中都要用到。这变量可能是第三方包，或者是自己定义的一个工具类对象等。
+比如在基于jQuery的多页面应用中，在每一个...">
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+    <!--Title-->
+
+<title>
+    
+    webpack入门学习笔记09 —— 在项目中引入全局变量 |
+    
+    Fengzhen8023
+</title>
+
+<link rel="alternate" href="/atom.xml" title="Fengzhen8023" type="application/atom+xml">
+
+
+<link rel="icon" href="/favicon.ico">
+
+    
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.7.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+<link rel="stylesheet" href="/fonts/iconfont.css">
+    
+<div class="hide">
+    <script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+</div>
+
+
+
+
+    
+
+</head></html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+<body>
+    <header class="main-header"  >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='John Doe'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+            <!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+            <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+        </div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                        <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://yoursite.com">
+                        Fengzhen8023</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/"><i class="fa "></i>
+                                Home</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/React/"><i class="fa "></i>
+                                React</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/Webpack/"><i class="fa "></i>
+                                Webpack</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/Python/"><i class="fa "></i>
+                                Python</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/userfulTools/"><i class="fa "></i>
+                                实用工具</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/archives/"><i class="fa "></i>
+                                时间轴</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="webpack入门学习笔记09 —— 在项目中引入全局变量">
+            
+            webpack入门学习笔记09 —— 在项目中引入全局变量
+            
+        </h1>
+        <div class="post-meta">
+    
+    <span class="categories-meta fa-wrap">
+        <i class="iconfont icon-wulumuqishigongandashujuguanlipingtai-ico-"></i>
+        <a class="category-link" href="/categories/Webpack/">Webpack</a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="iconfont icon-biaoqian"></i>
+        <span class="tags-meta">
+            
+            <a class="tag-link" href="/tags/Webpack/">Webpack</a> <a class="tag-link" href="/tags/前端/">前端</a>
+            
+        </span>
+    </span>
+    
+    
+    
+    <span class="fa-wrap">
+        <i class="iconfont icon-date"></i>
+        <span class="date-meta">
+            2019/07/21</span>
+    </span>
+    
+    
+</div>
+        
+        
+    </div>
+    
+    <div class="post-body post-content">
+        <h2 id="1-写在前面"><a href="#1-写在前面" class="headerlink" title="1. 写在前面"></a>1. 写在前面</h2><p>在做项目的时候，我们可能会经常遇到这种场景：一个变量我在很多文件中都要用到。这变量可能是第三方包，或者是自己定义的一个工具类对象等。</p>
+<p>比如在基于jQuery的多页面应用中，在每一个页面中都要使用到 <strong>jQuery对象</strong> ；在单页面应用中，一个 <strong>消息提示框</strong> 在所有组件中都要用到。</p>
+<p>这个时候我们应该怎么办，如果在所有页面中都引用这个变量的话，工作量比较大，而且对项目的维护也不是很友好。这篇博客就来讲解：如何高效便捷地引入全局变量。主要内容包括：</p>
+<ul>
+<li>使用 <strong>webpack模块</strong> 注册全局变量</li>
+<li>将变量暴露给 <strong>window对象</strong> ，成为全局变量</li>
+</ul>
+<p>我们jquery对象为例，讲解如何在基于webpack的项目中，注入全局变量。首先安装jquery包：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yard add jquery</span><br></pre></td></tr></table></figure></p>
+<h2 id="2-使用webpack模块注入全局变量"><a href="#2-使用webpack模块注入全局变量" class="headerlink" title="2. 使用webpack模块注入全局变量"></a>2. 使用webpack模块注入全局变量</h2><p>这里要特别注意一下，webpack是一个工具，可以帮助我们构建项目，在这个工具里面，有一个 <strong>同名模块</strong>，叫做 <strong>webpack</strong> ，我们今天就是要使用这个模块来给每一个页面或者组件注入一个对象。</p>
+<p>配置的规则很简单，这里先给出 <strong>webpack.config.js</strong> 文件中的配置代码，然后再进行解释：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 节省篇幅，其他的配置信息忽已略 */</span></span><br><span class="line"><span class="keyword">let</span> Webpack = <span class="built_in">require</span>(<span class="string">'webpack'</span>)    <span class="comment">// 引入webpack模块</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    plugins: [      <span class="comment">// 这是一个插件，所以要在plugins属性中配置</span></span><br><span class="line">        <span class="keyword">new</span> Webpack.ProvidePlugin(&#123;</span><br><span class="line">            $: <span class="string">'jquery'</span></span><br><span class="line">        &#125;)</span><br><span class="line">    ],</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里将其他的配置规则省略了，如果你想看其他的配置规则，可以查看我的 <strong><a href="https://github.com/Fengzhen8023/webpack-learning" target="_blank" rel="noopener">GitHub仓库 - webpack-learning</a></strong> ,或者通过本文末尾的链接，跳转到我之前的博客中进行查看。</p>
+<p>上述配置的作用是：给项目中的每一个文件，都注入一个对象 <strong>$</strong> ，这个对象就是我们安装的jquery包。安装完成之后，在其他页面中无需引入，即可使用jQuery语法。比如某一个 <strong>.js</strong> 文件中书写以下代码：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log($)</span><br><span class="line"><span class="built_in">console</span>.log($(<span class="built_in">window</span>));</span><br></pre></td></tr></table></figure>
+<p>项目启动之后，就会在控制台输出jquery对象和选择的window对象。由此可知，我们成功注册了一个全局变量。</p>
+<h2 id="3-将变量暴露给-window对象-，成为全局变量"><a href="#3-将变量暴露给-window对象-，成为全局变量" class="headerlink" title="3. 将变量暴露给 window对象 ，成为全局变量"></a>3. 将变量暴露给 <strong>window对象</strong> ，成为全局变量</h2><p>从事前端开发的程序员都知道，JS的全局变量就是 <strong>window</strong> 对象的属性或方法，所以如果在项目中，如果我们能够把一个变量，设置成 <strong>window</strong> 对象的属性或者方法，那么它就成为了全局变量，就可以在其他文件中使用了。</p>
+<p>想要达到这个目的，我们可以借助 <strong>expose-loader</strong> ，首先执行以下命令，进行安装：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add expose-loader -D</span><br></pre></td></tr></table></figure>
+<p>expose-loader是一个 <strong>内联loader</strong> ，即可以字节在文件中使用，当然也可以在 <strong>webpack.config.js</strong> 配置文件中使用。我们先来讲解如何在文件中使用这一loader。</p>
+<p>现在假设项目中有一个 <strong>index.js</strong> 文件，我们在这个文件中将 <strong>$对象</strong> 暴露给 <strong>window</strong> 对象，使之成为全局变量，那么可以书写以下代码：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> $<span class="number">1</span> <span class="keyword">from</span> <span class="string">'expose-loader?$!jquery'</span>	<span class="comment">// 引入jquery对象，并将该对象暴露给window的$属性</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log($<span class="number">1</span>)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">window</span>.$);</span><br></pre></td></tr></table></figure>
+<p>可能上面的代码你看着有些头晕，我来讲解一下：</p>
+<ol>
+<li>首先通过 <strong>import</strong> 命令，从安装的jquery包中导入一个对象，将这个对象命名为 <strong>\$1</strong> ，<strong>\$1</strong> 不是全局对象。</li>
+<li>通过 <strong><code>expose-loader?$!jquery</code></strong> 命令，从安装的jquery模块中导入一个对象，将这个对象添加到 <strong>window</strong> 对象的 <strong>\$</strong> 属性上。这样一来，就得到了一个全局变量 <strong>window.\$</strong> ，即 <strong>$</strong> 。</li>
+</ol>
+<p>如果你不喜欢在文件使用内联loader设置全局对象，那么可以在 <strong>webpac.config.js</strong> 文件中，进行配置，配置代码如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    <span class="built_in">module</span>: &#123;</span><br><span class="line">        rules: [&#123;</span><br><span class="line">                test: <span class="built_in">require</span>.resolve(<span class="string">'jquery'</span>),    <span class="comment">// 匹配到引入jquery的文件</span></span><br><span class="line">                use: <span class="string">'expose-loader?$'</span>              <span class="comment">// 使用 expose-loader 进行处理</span></span><br><span class="line">            &#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后你就可以在 <strong>index.js</strong> 文件中正常地引入jquery包，webpack会来使用 <strong>expose-loader</strong> 自动帮我们暴露全局变量。 <strong>index.js</strong> 文件代码参考如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> $<span class="number">1</span> <span class="keyword">from</span> <span class="string">'jquery'</span>		<span class="comment">// 正常导入jquery包</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log($<span class="number">1</span>)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">window</span>.$);</span><br></pre></td></tr></table></figure>
+<p>这样设置之后，在其他的 <strong>.js</strong> 文件中，就无须再导入jquery，方便快捷。</p>
+<h2 id="4-写在后面"><a href="#4-写在后面" class="headerlink" title="4. 写在后面"></a>4. 写在后面</h2><p>上面介绍了两种设置全局变量的方式，就我个人来说，比较喜欢第一种，大家可以根据需要和喜好，自行选择。</p>
+<p>这就是本篇博客的全部内容了，大家加油，学懂webpack！</p>
+
+    </div>
+    
+    <div class="post-footer">
+        <div>
+            
+            转载声明：
+            商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="https://www.jianshu.com/u/231315b8e406" target="_blank">Fengzhen8023</a>
+            
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+<div class="article-nav prev-next-wrap clearfix">
+    
+    <a href="/2019/07/21/webpack入门学习笔记08 —— 使用ESLint检查项目代码/" class="pre-post btn btn-default" title='webpack入门学习笔记08 —— 使用ESLint检查项目代码'>
+        <span class="remove-hidden-lg">上一篇</span>
+        <span class="hidden-xs">
+            webpack入门学习笔记08 —— 使用ESLint检查项目代码</span>
+    </a>
+    
+    
+    <a href="/2019/07/13/webpack入门学习笔记07 ——  关于babel的一些补充/" class="next-post btn btn-default" title='webpack入门学习笔记07 ——  关于babel的一些补充'>
+        <span class="remove-hidden-lg">下一篇</span>
+        <span class="hidden-xs">
+            webpack入门学习笔记07 ——  关于babel的一些补充</span></i>
+    </a>
+    
+</div>
+
+<div id="comments">
+    
+
+<div id="vcomments" class="valine"></div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+<script>
+new Valine({
+    av: AV,
+    el: '#vcomments',
+    appId: 'xOKV9J4UeQAtVkvnJC7Kq2Jn-gzGzoHsz',
+    appKey: 'erIpQac4azoCmgfBB7Dl9maa',
+    placeholder: '说点什么吧',
+    notify: false,
+    verify: true,
+    avatar: 'mm',
+    meta: 'nick,mail'.split(','),
+    pageSize: '10',
+    path: window.location.pathname,
+    lang: 'en'.toLowerCase()
+})
+</script>
+
+
+</div>
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">
+            Table of Contents
+        </h3>
+        
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-写在前面"><span class="toc-text">1. 写在前面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-使用webpack模块注入全局变量"><span class="toc-text">2. 使用webpack模块注入全局变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-将变量暴露给-window对象-，成为全局变量"><span class="toc-text">3. 将变量暴露给 window对象 ，成为全局变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-写在后面"><span class="toc-text">4. 写在后面</span></a></li></ol>
+        
+    </div>
+</aside>
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+<a id="back-to-top" class="icon-btn hide">
+    <i class="iconfont icon-top"></i>
+</a>
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy;
+                    2017
+                    
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+</body>
+</html>
